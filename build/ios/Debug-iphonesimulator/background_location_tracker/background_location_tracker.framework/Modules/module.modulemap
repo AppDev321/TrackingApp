@@ -1,0 +1,11 @@
+framework module background_location_tracker {
+  umbrella header "background_location_tracker-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module background_location_tracker.Swift {
+  header "background_location_tracker-Swift.h"
+  requires objc
+}
