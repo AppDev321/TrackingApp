@@ -21,6 +21,8 @@ dependencies:
   http: ^0.13.5
   background_location:
     path: background_location-master
+  firebase_messaging: ^14.3.0
+  firebase_core: ^2.8.0
 
 
 

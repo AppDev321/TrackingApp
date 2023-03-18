@@ -43,7 +43,7 @@ class NotificationService {
   void onDidReceiveLocalNotification(
       int id, String? title, String? body, String? payload) {}
 
-  Future<void> newNotification(String msg, bool vibration) async {
+  Future<void> newNotification(String title,String msg, bool vibration) async {
     // Define vibration pattern
     var vibrationPattern = Int64List(4);
     vibrationPattern[0] = 0;
@@ -66,7 +66,7 @@ class NotificationService {
         android: androidNotificationDetails);
 
     try {
-      await plugin.show(0, msg, msg, notificationDetails);
+      await plugin.show(0, title, msg, notificationDetails);
     } catch (ex) {
       print(ex);
     }

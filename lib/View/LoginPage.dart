@@ -3,11 +3,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tracking_app/Controller/FCMController.dart';
 import 'package:tracking_app/Location/LocationController.dart';
 
 import '../Controller/LoginController.dart';
 
 import '../Location/LocationService.dart';
+import '../Notification/PushNotifications.dart';
+import '../Utils/Controller.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -17,13 +20,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   final LoginController loginController = Get.put(LoginController());
-final LocationController locationController = Get.put(LocationController());
+  final LocationController locationController = Get.put(LocationController());
+  final FCMController fcmController = Get.put(FCMController());
 
 @override
-  void initState() {
+  void initState() async{
     // TODO: implement initState
     super.initState();
-
 
 
   }
