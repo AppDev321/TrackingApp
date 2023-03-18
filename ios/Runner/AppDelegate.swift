@@ -9,6 +9,7 @@ import Flutter
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
 
+ BackgroundLocatorPlugin.setPluginRegistrantCallback(registerPlugins)
 
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
