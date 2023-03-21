@@ -1,5 +1,6 @@
 import UIKit
 import Flutter
+import GoogleMaps
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -8,9 +9,7 @@ import Flutter
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
-
- BackgroundLocatorPlugin.setPluginRegistrantCallback(registerPlugins)
-
+    GMSServices.provideAPIKey("AIzaSyCMKV0Yz1tY-tliMVuyd-rstHlvjt6WkGA")
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

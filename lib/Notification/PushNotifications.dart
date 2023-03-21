@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tracking_app/Utils/Controller.dart';
@@ -52,6 +53,7 @@ class PushNotifications {
     });
     FirebaseMessaging.onBackgroundMessage((RemoteMessage message) async {
       Controller().printLogs('======= On Background Message =======');
+      await Firebase.initializeApp();
       setStreamData(message);
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {

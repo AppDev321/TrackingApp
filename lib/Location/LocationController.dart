@@ -1,10 +1,10 @@
 import 'dart:async';
 
+import 'package:background_location/background_location.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-
-import 'LocationService.dart';
+import 'package:get_storage/get_storage.dart';
 
 
 //Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
@@ -15,13 +15,14 @@ class LocationController extends GetxController {
   var longitude = 'Getting Longitude..'.obs;
   var address = 'Getting Address..'.obs;
   late StreamSubscription<Position> streamSubscription;
-
+  Timer? timer;
 
   @override
   void onInit() async {
     super.onInit();
+    await GetStorage.init();
+    await beginTracking();
     getLocation();
-
   }
 
   @override
@@ -31,10 +32,10 @@ class LocationController extends GetxController {
 
   @override
   void onClose() {
+    timer?.cancel();
     print("onclose called");
-   // streamSubscription.cancel();
+    streamSubscription.cancel();
   }
-
 
   getLocation() async {
     bool serviceEnabled;
@@ -57,20 +58,44 @@ class LocationController extends GetxController {
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
-    LocationService().init(); //Start background service
-    streamSubscription =
+
+    /*streamSubscription =
         Geolocator.getPositionStream().listen((Position position) {
           latitude.value = 'Latitude : ${position.latitude}';
           longitude.value = 'Longitude : ${position.longitude}';
           getAddressFromLatLang(position);
-          print("location = ${latitude.value}");
+         // print("location = ${latitude.value}");
 
-        });
+        });*/
+
+
+    timer = Timer.periodic(Duration(seconds: 5), (Timer t) async {
+      var location = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      print("location == ${location.longitude}");
+      latitude.value = 'Latitude : ${location.latitude}';
+      longitude.value = 'Longitude : ${location.longitude}';
+    });
+
+
+
+  }
+
+  Future<void> beginTracking() async {
+    BackgroundLocation.setAndroidNotification(
+      title: "Gatego is tracking your location",
+      message: "Click here to open the Gatego Driver app.",
+      icon: "@mipmap/launcher_icon",
+    );
+    BackgroundLocation.startLocationService(distanceFilter: 1);
+
+    /* BackgroundLocation.getLocationUpdates((location) {
+      print("backgorund workssss");
+    });*/
   }
 
   Future<void> getAddressFromLatLang(Position position) async {
     List<Placemark> placemark =
-    await placemarkFromCoordinates(position.latitude, position.longitude);
+        await placemarkFromCoordinates(position.latitude, position.longitude);
     Placemark place = placemark[0];
     address.value = 'Address : ${place.locality},${place.country}';
   }

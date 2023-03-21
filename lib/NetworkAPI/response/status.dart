@@ -3,5 +3,6 @@
 enum Status {
   LOADING,
   COMPLETED,
-  ERROR
+  ERROR,
+  NONE
 }

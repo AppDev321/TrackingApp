@@ -16,16 +16,18 @@ class NetworkRepository {
 
   Future<dynamic> loginUser(data) async {
     try {
-      dynamic response =
-          await _apiServices.getPostApiResponse(AppURL.apiKey, data, true);
+      dynamic response = await _apiServices.getFormDataApiResponse(
+          AppURL.loginUrl, data, true);
 
       var responseData = json.encode(response);
       final body = json.decode(responseData);
-      GeneralResponse res = GeneralResponse.fromJson(body);
-      if (res.code == 200) {
-        return  LoginResponse.fromJson(res.data?.data);
+
+
+      if (body is String) {
+        return body;
       } else {
-        return res.errors;
+        LoginResponse res = LoginResponse.fromJson(body);
+        return res.data;
       }
     } catch (e) {
       printException("Login", e.toString());

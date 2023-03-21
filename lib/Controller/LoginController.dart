@@ -1,19 +1,25 @@
 import 'package:get/state_manager.dart';
 
+import '../Model/response/LoginResponse.dart';
+import '../NetworkAPI/app_repository.dart';
+import '../NetworkAPI/response/api_response.dart';
 
 class LoginController extends GetxController {
- /* var isLoading = true.obs;
-  var casts = List<Cast>().obs;
+  final _appRepo = NetworkRepository();
+  var loginData = ApiResponse.none().obs;
 
-  void fetchCasts({int movieID}) async {
-    try {
-      isLoading(true);
-      var res = await RestAPI.fetchCastOfMovie(movieID: movieID);
-      if (res != null) {
-        casts.assignAll(res);
-      }
-    } finally {
-      isLoading(false);
+  void loginDriver(Map<String, String> request) async {
+    loginData.value = ApiResponse.loading();
+    var res = await _appRepo.loginUser(request);
+    if (res is String) {
+      loginData.value = ApiResponse.error(res);
+    } else {
+
+      loginData.value = ApiResponse.completed(res);
     }
-  }*/
+  }
+
+
+
+
 }

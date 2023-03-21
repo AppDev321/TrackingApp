@@ -1,122 +1,65 @@
-class LoginResponse {
-  String? token;
-  User? user;
+import 'dart:ffi';
 
-  LoginResponse({this.token, this.user});
+class LoginResponse  {
+  bool? status;
+  Driver? data;
+
+  LoginResponse({this.status, this.data});
 
   LoginResponse.fromJson(Map<String, dynamic> json) {
-    token = json['token'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    status = json['status'];
+    data = json['data'] != null ? new Driver.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['token'] = this.token;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    data['status'] = this.status;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
     }
     return data;
   }
 }
 
-class User {
-  int? id;
-  String? firstname;
-  String? middlename;
-  String? lastname;
-  String? contactNo;
-  String? officialEmail;
-  String? personalEmail;
-  String? dateOfBirth;
-  String? gender;
-  String? emergencyContactRelationship;
-  String? emergencyContact;
-  String? emergencyContactAddress;
-  String? currentAddress;
-  String? permanentAddress;
-  String? city;
-  String? picture;
-  String? joiningDate;
-  String? exitDate;
+
+class Driver {
+  String? id;
   String? fullName;
+  String? email;
+  String? mobileNo;
+  String? maxSpeed;
+  Double? longitude;
+  Double? latitude;
 
-  User(
-      {this.id,
-        this.firstname,
-        this.middlename,
-        this.lastname,
+  Driver(
+      {
+        this.id,
+        this.fullName,
+        this.email,
+        this.mobileNo,
+        this.maxSpeed,
+        this.longitude,
+        this.latitude});
 
-        this.contactNo,
-        this.officialEmail,
-        this.personalEmail,
-
-        this.dateOfBirth,
-        this.gender,
-        this.emergencyContactRelationship,
-        this.emergencyContact,
-        this.emergencyContactAddress,
-        this.currentAddress,
-        this.permanentAddress,
-        this.city,
-
-        this.picture,
-        this.joiningDate,
-        this.exitDate,
-
-        this.fullName});
-
-  User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    firstname = json['firstname'];
-    middlename = json['middlename'];
-    lastname = json['lastname'];
-
-    contactNo = json['contact_no'];
-    officialEmail = json['official_email'];
-    personalEmail = json['personal_email'];
-
-    dateOfBirth = json['date_of_birth'];
-    gender = json['gender'];
-    emergencyContactRelationship = json['emergency_contact_relationship'];
-    emergencyContact = json['emergency_contact'];
-    emergencyContactAddress = json['emergency_contact_address'];
-    currentAddress = json['current_address'];
-    permanentAddress = json['permanent_address'];
-    city = json['city'];
-
-    picture = json['picture'];
-    joiningDate = json['joining_date'];
-    exitDate = json['exit_date'];
-
-    fullName = json['full_name'];
+  Driver.fromJson(Map<String, dynamic> json) {
+    id = json['DriverId'];
+    fullName = json['FullName'];
+    email = json['Email'];
+    mobileNo = json['MobileNo'];
+    maxSpeed = json['MaxSpeed'];
+    longitude = json['Longitude'];
+    latitude = json['Latitude'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  <String, dynamic>{};
-    data['id'] = this.id;
-    data['firstname'] = this.firstname;
-    data['middlename'] = this.middlename;
-    data['lastname'] = this.lastname;
-
-    data['contact_no'] = this.contactNo;
-    data['official_email'] = this.officialEmail;
-    data['personal_email'] = this.personalEmail;
-
-    data['date_of_birth'] = this.dateOfBirth;
-    data['gender'] = this.gender;
-    data['emergency_contact_relationship'] = this.emergencyContactRelationship;
-    data['emergency_contact'] = this.emergencyContact;
-    data['emergency_contact_address'] = this.emergencyContactAddress;
-    data['current_address'] = this.currentAddress;
-    data['permanent_address'] = this.permanentAddress;
-    data['city'] = this.city;
-
-    data['picture'] = this.picture;
-    data['joining_date'] = this.joiningDate;
-    data['exit_date'] = this.exitDate;
-
-
-    data['full_name'] = this.fullName;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['DriverId'] = this.id;
+    data['FullName'] = this.fullName;
+    data['Email'] = this.email;
+    data['MobileNo'] = this.mobileNo;
+    data['MaxSpeed'] = this.maxSpeed;
+    data['Longitude'] = this.longitude;
+    data['Latitude'] = this.latitude;
     return data;
   }
 }
