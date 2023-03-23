@@ -23,6 +23,7 @@ class LoginResponse  {
 
 
 class Driver {
+  String? errorMessage;
   String? id;
   String? fullName;
   String? email;
@@ -33,6 +34,7 @@ class Driver {
 
   Driver(
       {
+        this.errorMessage,
         this.id,
         this.fullName,
         this.email,
@@ -49,6 +51,7 @@ class Driver {
     maxSpeed = json['MaxSpeed'];
     longitude = json['Longitude'];
     latitude = json['Latitude'];
+    errorMessage = json['message'];
   }
 
   Map<String, dynamic> toJson() {
@@ -60,6 +63,7 @@ class Driver {
     data['MaxSpeed'] = this.maxSpeed;
     data['Longitude'] = this.longitude;
     data['Latitude'] = this.latitude;
+    data['message'] = this.errorMessage;
     return data;
   }
 }

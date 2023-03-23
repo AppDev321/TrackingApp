@@ -1,11 +1,15 @@
 import 'dart:async';
 
+
 import 'package:background_location/background_location.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../NetworkAPI/app_repository.dart';
+import '../NetworkAPI/response/api_response.dart';
 
 //Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 //Position position = await Geolocator.getLastKnownPosition()
@@ -17,12 +21,19 @@ class LocationController extends GetxController {
   late StreamSubscription<Position> streamSubscription;
   Timer? timer;
 
+  final driverPosition = StreamController<Position>.broadcast();
+  Stream<Position> get getDriverPosition => driverPosition.stream;
+
+
+  final _appRepo = NetworkRepository();
+  var apiResponseData = ApiResponse.none().obs;
+
+  var driverID = "";
+
   @override
   void onInit() async {
     super.onInit();
     await GetStorage.init();
-    await beginTracking();
-    getLocation();
   }
 
   @override
@@ -32,12 +43,14 @@ class LocationController extends GetxController {
 
   @override
   void onClose() {
+    print("close location c");
     timer?.cancel();
-    print("onclose called");
-    streamSubscription.cancel();
+   // streamSubscription.cancel();
   }
 
-  getLocation() async {
+  void getLocation() async {
+    await beginTracking();
+
     bool serviceEnabled;
 
     LocationPermission permission;
@@ -68,17 +81,21 @@ class LocationController extends GetxController {
 
         });*/
 
-
     timer = Timer.periodic(Duration(seconds: 5), (Timer t) async {
-      var location = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      var location = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
       print("location == ${location.longitude}");
       latitude.value = 'Latitude : ${location.latitude}';
       longitude.value = 'Longitude : ${location.longitude}';
+
+      driverPosition.sink.add(location);
+
+
+
     });
-
-
-
   }
+
+
 
   Future<void> beginTracking() async {
     BackgroundLocation.setAndroidNotification(
@@ -99,4 +116,20 @@ class LocationController extends GetxController {
     Placemark place = placemark[0];
     address.value = 'Address : ${place.locality},${place.country}';
   }
+
+
+
+  void updateDriverLocation(Map<String, String> request) async {
+    apiResponseData.value = ApiResponse.loading();
+    var res = await _appRepo.updateLocation(request);
+    if (res is String) {
+      apiResponseData.value = ApiResponse.error(res);
+    } else {
+      apiResponseData.value = ApiResponse.completed(res);
+    }
+  }
+
+
+
+
 }

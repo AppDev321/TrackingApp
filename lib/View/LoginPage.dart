@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:maps_launcher/maps_launcher.dart';
-import 'package:tracking_app/Location/LocationController.dart';
 import 'package:tracking_app/NetworkAPI/response/api_response.dart';
 import 'package:tracking_app/View/HomePage.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../Controller/LoginController.dart';
 import '../CustomWidget/BouncingButton.dart';
@@ -20,7 +17,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final LoginController loginController = Get.put(LoginController());
-  final LocationController locationController = Get.put(LocationController());
 
   // final FCMController fcmController = Get.put(FCMController());
   late ProgressDialogBuilder progressDialog;
@@ -37,17 +33,20 @@ class _LoginPageState extends State<LoginPage> {
         case Status.COMPLETED:
           progressDialog.hideOpenDialog();
           var userDetail = loginData.data as Driver;
-          Get.to(()=>HomePage(),arguments:  [
+          Get.to(HomePage(),arguments:  [
             {Controller.DRIVER_DETAIL: userDetail}
-
           ]);
+
+         /* Get.offAll(HomePage(),arguments:  [
+            {Controller.DRIVER_DETAIL: userDetail}
+          ]);*/
           break;
         case Status.NONE:
         case Status.ERROR:
           progressDialog.hideOpenDialog();
           break;
         case Status.LOADING:
-     //     progressDialog.showLoadingDialog();
+       progressDialog.showLoadingDialog();
           break;
       }
     });
@@ -56,10 +55,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+        body: ListView(
+
       children: <Widget>[
         Container(
+
           child: Stack(
             children: <Widget>[
               Container(
@@ -134,6 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                           var map = Map<String, String>();
                           map['username'] = 'faheemakbar18@gmail.com';
                           map['password'] = '12345678';
+                          map['device_id']="adlfkajdsf";
                           loginController.loginDriver(map);
                         })),
                 SizedBox(height: 20.0),

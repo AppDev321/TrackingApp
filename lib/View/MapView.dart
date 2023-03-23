@@ -6,9 +6,29 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:tracking_app/Model/response/RouteResponse.dart';
 import 'package:tracking_app/Utils/Controller.dart';
 
+
+
+/*
+
+
+
+val directionUrl = "https://maps.googleapis.com/maps/api/directions/json?" +
+    "origin=${currentLocation!!.latitude},${currentLocation!!.longitude}" +
+    "&destination=${routeSheet.last().latitude},${routeSheet.last().longitude}" +
+    "&waypoints=$waypoints" +
+    "&mode=driving" +
+    "&key=${getString(R.string.map_key)}"*/
+
+
+
 class MapView extends StatefulWidget {
+  final SegmentDetail segmentDetail;
+
+  const MapView({super.key, required this.segmentDetail});
+
   @override
   _MapViewState createState() => _MapViewState();
 }
@@ -36,7 +56,50 @@ class _MapViewState extends State<MapView> {
   Map<PolylineId, Polyline> polylines = {};
   List<LatLng> polylineCoordinates = [];
 
+  List<LatLng> wayPoints = [];
+  late LatLng startPoint;
+  late LatLng endPoint;
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  late SegmentDetail segmentDetail;
+
+  @override
+  void initState() {
+    super.initState();
+    segmentDetail = widget.segmentDetail;
+    startPoint = LatLng(double.parse(segmentDetail.from!.latitude!),
+        double.parse(segmentDetail.from!.longitude!));
+    endPoint = LatLng(double.parse(segmentDetail.to!.latitude!),
+        double.parse(segmentDetail.to!.longitude!));
+    for (RouteDetail waypoints in segmentDetail.waypoints!) {
+      var stopPoints = LatLng(double.parse(waypoints.latitude!),
+          double.parse(waypoints.longitude!));
+      wayPoints.add(stopPoints);
+    }
+
+
+
+
+    setState(() {
+
+
+      _currentAddress =
+          segmentDetail.from!.address.toString().replaceAll("'", "");
+      startAddressController.text = _currentAddress;
+
+      _startAddress = _currentAddress;
+
+      print(_currentAddress);
+
+      _destinationAddress =
+          segmentDetail.to!.address.toString().replaceAll("'", "");
+      destinationAddressController.text = _destinationAddress;
+      print(_destinationAddress);
+    });
+
+    _getCurrentLocation();
+  }
 
   Widget _textField({
     required TextEditingController controller,
@@ -89,6 +152,7 @@ class _MapViewState extends State<MapView> {
 
   // Method for retrieving the current location
   _getCurrentLocation() async {
+    //await _getAddress();
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       setState(() {
@@ -103,7 +167,6 @@ class _MapViewState extends State<MapView> {
           ),
         );
       });
-      await _getAddress();
     }).catchError((e) {
       print(e);
     });
@@ -113,15 +176,25 @@ class _MapViewState extends State<MapView> {
   _getAddress() async {
     try {
       List<Placemark> p = await placemarkFromCoordinates(
-          _currentPosition.latitude, _currentPosition.longitude);
-
+          startPoint.latitude, startPoint.longitude);
       Placemark place = p[0];
+
+      List<Placemark> p1 =
+          await placemarkFromCoordinates(endPoint.latitude, endPoint.longitude);
+      Placemark place2 = p1[0];
 
       setState(() {
         _currentAddress =
-        "${place.name}, ${place.locality}, ${place.postalCode}, ${place.country}";
+            "${place.name}, ${place.locality}, ${place.postalCode}, ${place.country}";
         startAddressController.text = _currentAddress;
         _startAddress = _currentAddress;
+
+        print(_currentAddress);
+
+        _destinationAddress =
+            "${place2.name}, ${place2.locality}, ${place2.postalCode}, ${place2.country}";
+        destinationAddressController.text = _destinationAddress;
+        print(_destinationAddress);
       });
     } catch (e) {
       print(e);
@@ -131,24 +204,10 @@ class _MapViewState extends State<MapView> {
   // Method for calculating the distance between two places
   Future<bool> _calculateDistance() async {
     try {
-      // Retrieving placemarks from addresses
-      List<Location> startPlacemark = await locationFromAddress(_startAddress);
-      List<Location> destinationPlacemark =
-      await locationFromAddress(_destinationAddress);
-
-      // Use the retrieved coordinates of the current position,
-      // instead of the address if the start position is user's
-      // current position, as it results in better accuracy.
-      double startLatitude = _startAddress == _currentAddress
-          ? _currentPosition.latitude
-          : startPlacemark[0].latitude;
-
-      double startLongitude = _startAddress == _currentAddress
-          ? _currentPosition.longitude
-          : startPlacemark[0].longitude;
-
-      double destinationLatitude = destinationPlacemark[0].latitude;
-      double destinationLongitude = destinationPlacemark[0].longitude;
+      double startLatitude = startPoint.latitude;
+      double startLongitude = startPoint.longitude;
+      double destinationLatitude = endPoint.latitude;
+      double destinationLongitude = endPoint.longitude;
 
       String startCoordinatesString = '($startLatitude, $startLongitude)';
       String destinationCoordinatesString =
@@ -159,7 +218,7 @@ class _MapViewState extends State<MapView> {
         markerId: MarkerId(startCoordinatesString),
         position: LatLng(startLatitude, startLongitude),
         infoWindow: InfoWindow(
-          title: 'Start $startCoordinatesString',
+          title: 'Start Point',
           snippet: _startAddress,
         ),
         icon: BitmapDescriptor.defaultMarker,
@@ -170,7 +229,7 @@ class _MapViewState extends State<MapView> {
         markerId: MarkerId(destinationCoordinatesString),
         position: LatLng(destinationLatitude, destinationLongitude),
         infoWindow: InfoWindow(
-          title: 'Destination $destinationCoordinatesString',
+          title: 'Destination Point',
           snippet: _destinationAddress,
         ),
         icon: BitmapDescriptor.defaultMarker,
@@ -229,13 +288,17 @@ class _MapViewState extends State<MapView> {
       //   destinationLongitude,
       // );
 
-      await _createPolylines(startLatitude, startLongitude, destinationLatitude,
+      await createPolylines(startLatitude, startLongitude, destinationLatitude,
           destinationLongitude);
 
       double totalDistance = 0.0;
 
-      // Calculating the total distance by adding the distance
-      // between small segments
+
+      polylineCoordinates.add(startPoint);
+      polylineCoordinates.addAll(wayPoints);
+      polylineCoordinates.add(endPoint);
+
+      print(' ${polylineCoordinates.length} km');
       for (int i = 0; i < polylineCoordinates.length - 1; i++) {
         totalDistance += _coordinateDistance(
           polylineCoordinates[i].latitude,
@@ -257,8 +320,6 @@ class _MapViewState extends State<MapView> {
     return false;
   }
 
-  // Formula for calculating distance between two coordinates
-  // https://stackoverflow.com/a/54138876/11910277
   double _coordinateDistance(lat1, lon1, lat2, lon2) {
     var p = 0.017453292519943295;
     var c = cos;
@@ -268,13 +329,12 @@ class _MapViewState extends State<MapView> {
     return 12742 * asin(sqrt(a));
   }
 
-  // Create the polylines for showing the route between two places
-  _createPolylines(
-      double startLatitude,
-      double startLongitude,
-      double destinationLatitude,
-      double destinationLongitude,
-      ) async {
+  createPolylines(
+    double startLatitude,
+    double startLongitude,
+    double destinationLatitude,
+    double destinationLongitude,
+  ) async {
     polylinePoints = PolylinePoints();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       Controller.MAP_API_KEY, // Google Maps API Key
@@ -285,7 +345,7 @@ class _MapViewState extends State<MapView> {
 
     if (result.points.isNotEmpty) {
       result.points.forEach((PointLatLng point) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+        //  polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       });
     }
 
@@ -297,12 +357,6 @@ class _MapViewState extends State<MapView> {
       width: 3,
     );
     polylines[id] = polyline;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _getCurrentLocation();
   }
 
   @override
@@ -399,7 +453,7 @@ class _MapViewState extends State<MapView> {
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           Text(
-                            'Route Name',
+                            '${segmentDetail.segment?.segmentTitle ?? "N/A"}',
                             style: TextStyle(fontSize: 20.0),
                           ),
                           SizedBox(height: 10),
@@ -451,15 +505,12 @@ class _MapViewState extends State<MapView> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               ElevatedButton(
-                                onPressed: (_startAddress != '' &&
-                                    _destinationAddress != '')
-                                    ? () async {
+                                onPressed: () async {
                                   startAddressFocusNode.unfocus();
                                   desrinationAddressFocusNode.unfocus();
                                   setState(() {
                                     if (markers.isNotEmpty) markers.clear();
-                                    if (polylines.isNotEmpty)
-                                      polylines.clear();
+                                    if (polylines.isNotEmpty) polylines.clear();
                                     if (polylineCoordinates.isNotEmpty)
                                       polylineCoordinates.clear();
                                     _placeDistance = null;
@@ -484,8 +535,7 @@ class _MapViewState extends State<MapView> {
                                       );
                                     }
                                   });
-                                }
-                                    : null,
+                                },
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
@@ -504,10 +554,10 @@ class _MapViewState extends State<MapView> {
                                 ),
                               ),
                               ElevatedButton(
-                                onPressed:  (_startAddress != '' &&  _destinationAddress != '') ? () async {
-
-                                  MapsLauncher.launchCoordinates(33.5473873,73.1231582,"Destination Point");
-                                }  :null    ,
+                                onPressed: () async {
+                                  MapsLauncher.launchCoordinates(33.5473873,
+                                      73.1231582, "Destination Point");
+                                },
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
