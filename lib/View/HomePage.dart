@@ -9,12 +9,13 @@ import 'package:tracking_app/CustomWidget/NameIconBadge.dart';
 import 'package:tracking_app/Utils/Controller.dart';
 import 'package:tracking_app/View/MapView.dart';
 import 'package:tracking_app/View/NotificationPage.dart';
+import '../Controller/FCMController.dart';
 import '../Controller/HomeController.dart';
-import '../Location/LocationController.dart';
+import '../Controller/LocationController.dart';
 import '../Model/response/LoginResponse.dart';
 import '../Model/response/RouteResponse.dart';
 import '../NetworkAPI/response/status.dart';
-import 'GoogleMap.dart';
+import '../Notification/PushNotifications.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -30,7 +31,7 @@ class _HomePage extends State<HomePage> {
   final LocationController locationController = Get.put(LocationController());
   late Driver driverDetail;
   late StreamSubscription driverStreamListner;
-  bool isDriverModeOnline= false;
+  bool isDriverModeOnline = false;
 
   @override
   void initState() {
@@ -44,6 +45,13 @@ class _HomePage extends State<HomePage> {
       map['longitude'] = position.longitude.toString();
       map['driver_id'] = driverDetail.id.toString();
       locationController.updateDriverLocation(map);
+    });
+
+    var control = Get.find<FCMController>();
+    control.notification.listen((notificationData) {
+      print("Home Notificaiton reciev");
+      controller.getDriverRoute(driverDetail.id.toString());
+
     });
 
     super.initState();
@@ -61,126 +69,129 @@ class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                //color: Color(0xFFD4E7FE),
-                gradient: LinearGradient(
-                    colors: [
-                      Color(0xFFD4E7FE),
-                      Color(0xFFF0F0F0),
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: [0.6, 0.3])),
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 40,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(width: 1, color: Colors.white),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.blueGrey.withOpacity(0.2),
-                            blurRadius: 12,
-                            spreadRadius: 8,
-                          )
-                        ],
-                      ),
-                      child: NamedIcon(
-                        onTap: () {
-                          Get.to(() => NotificationPage());
-                        },
-                        notificationCount: 12,
-                        iconData: Icons.notifications,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Hi,\n${driverDetail.fullName}",
-                          style: TextStyle(
-                            overflow: TextOverflow.ellipsis,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0XFF343E87),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "${driverDetail.email}",
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w200,
-                          ),
-                        ),
+    return WillPopScope(
+      onWillPop: () => onWillPop(context),
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  //color: Color(0xFFD4E7FE),
+                  gradient: LinearGradient(
+                      colors: [
+                        Color(0xFFD4E7FE),
+                        Color(0xFFF0F0F0),
                       ],
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          Positioned(
-              top: 185,
-              child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  height: Get.size.height,
-                  width: Get.size.width,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: [0.6, 0.3])),
+              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 40,
                   ),
-                  child: Column(
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: 20,
+                      Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(width: 1, color: Colors.white),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.blueGrey.withOpacity(0.2),
+                              blurRadius: 12,
+                              spreadRadius: 8,
+                            )
+                          ],
+                        ),
+                        child: NamedIcon(
+                          onTap: () {
+                            Get.to(() => NotificationPage());
+                          },
+                          notificationCount: 12,
+                          iconData: Icons.notifications,
+                          color: Colors.white,
+                        ),
                       ),
-                      buildTitleRow("Driving Mode", 0),
-                      Obx(() => SizedBox(
-                          height: Get.size.height - 220,
-                          child: controller.loginData.value.status ==
-                                  Status.LOADING
-                              ? SkeletonListView()
-                              : controller.listRoutes.value.length > 0
-                                  ? ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount:
-                                          controller.listRoutes.value.length,
-                                      itemBuilder: ((context, index) {
-                                        var item =
-                                            controller.listRoutes.value[index];
-
-                                        return routeListItem(item);
-                                      }),
-                                    )
-                                  : SizedBox(
-                                      height: Get.size.width,
-                                      child:
-                                          Center(child: Text("No Route Found")),
-                                    )))
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Hi,\n${driverDetail.fullName}",
+                            style: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0XFF343E87),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "${driverDetail.email}",
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w200,
+                            ),
+                          ),
+                        ],
+                      )
                     ],
-                  )))
-        ],
+                  )
+                ],
+              ),
+            ),
+            Positioned(
+                top: 185,
+                child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    height: Get.size.height,
+                    width: Get.size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        buildTitleRow("Driving Mode", 0),
+                        Obx(() => SizedBox(
+                            height: Get.size.height - 220,
+                            child: controller.loginData.value.status ==
+                                    Status.LOADING
+                                ? SkeletonListView()
+                                : controller.listRoutes.value.length > 0
+                                    ? ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount:
+                                            controller.listRoutes.value.length,
+                                        itemBuilder: ((context, index) {
+                                          var item = controller
+                                              .listRoutes.value[index];
+
+                                          return routeListItem(item);
+                                        }),
+                                      )
+                                    : SizedBox(
+                                        height: Get.size.width,
+                                        child: Center(
+                                            child: Text("No Route Found")),
+                                      )))
+                      ],
+                    )))
+          ],
+        ),
       ),
     );
   }
@@ -222,8 +233,10 @@ class _HomePage extends State<HomePage> {
           onChanged: (bool isOnline) {
             isDriverModeOnline = isOnline;
             if (isDriverModeOnline) {
+            //  controller.startForegroundTrackingService();
               locationController.getLocation();
             } else {
+             // controller.stopForegroundService();
               locationController.onClose();
             }
           },
@@ -296,16 +309,14 @@ class _HomePage extends State<HomePage> {
 
   Widget routeRow(String path, RouteDetail routeDetail, Color colorIcon) {
     return Material(
-        color: Colors.transparent,
-
-        child: InkWell(
+      color: Colors.transparent,
+      child: InkWell(
         onTap: () async {
-
-          if(!isDriverModeOnline)
- {
-   Controller().showToastMessage(context, "Please enable Driving Mode Online first");
-   return Future.error("Driver mode off");
- }
+          if (!isDriverModeOnline) {
+            Controller().showToastMessage(
+                context, "Please enable Driving Mode Online first");
+            return Future.error("Driver mode off");
+          }
           bool serviceEnabled;
           LocationPermission permission;
           serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -324,10 +335,11 @@ class _HomePage extends State<HomePage> {
                 'Location permissions are permanently denied, we cannot request permissions.');
           }
 
-            Get.to(() => MapView(segmentDetail: routeDetail,));
+          Get.to(() => MapView(
+                segmentDetail: routeDetail,
+              ));
         },
         child: Column(
-
           children: [
             SizedBox(
               height: 10,
@@ -340,7 +352,8 @@ class _HomePage extends State<HomePage> {
                   width: 20,
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: routeDetail.isCompleted == "1" ? Colors.blue : null),
+                      color:
+                          routeDetail.isCompleted == "1" ? Colors.blue : null),
                   child: Padding(
                     padding: const EdgeInsets.all(3.0),
                     child: routeDetail.isCompleted == "1"
@@ -403,6 +416,38 @@ class _HomePage extends State<HomePage> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<bool> onWillPop(BuildContext context) async {
+    bool? exitResult = await showDialog(
+      context: context,
+      builder: (context) => buildExitDialog(context),
+    );
+    return exitResult ?? false;
+  }
+
+  Future<bool?> showExitDialog(BuildContext context) async {
+    return await showDialog(
+      context: context,
+      builder: (context) => buildExitDialog(context),
+    );
+  }
+
+  AlertDialog buildExitDialog(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Please confirm'),
+      content: const Text('Do you want to exit the app?'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: Text('No'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(true),
+          child: Text('Yes'),
+        ),
+      ],
     );
   }
 }

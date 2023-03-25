@@ -11,6 +11,7 @@ class FCMController extends GetxController {
   var fcmToken = "".obs;
   var notification = RemoteMessage().obs;
 
+
   @override
   void onInit() async{
     // TODO: implement onInit

@@ -6,7 +6,6 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../NetworkAPI/app_repository.dart';
 import '../NetworkAPI/response/api_response.dart';
@@ -45,6 +44,7 @@ class LocationController extends GetxController {
   void onClose() {
     print("close location c");
     timer?.cancel();
+   // driverPosition.close();
    // streamSubscription.cancel();
   }
 
@@ -84,7 +84,6 @@ class LocationController extends GetxController {
     timer = Timer.periodic(Duration(seconds: 5), (Timer t) async {
       var location = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-      print("location == ${location.longitude}");
       latitude.value = 'Latitude : ${location.latitude}';
       longitude.value = 'Longitude : ${location.longitude}';
 

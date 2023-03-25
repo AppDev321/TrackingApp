@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+
+import 'Controller.dart';
 class NetworkHelper{
   NetworkHelper({required this.startLng,required this.startLat,required this.endLng,required this.endLat});
 
@@ -15,7 +17,7 @@ class NetworkHelper{
 
     var uri = Uri.parse("$url$journeyMode?api_key=$apiKey&start=$startLng,$startLat&end=$endLng,$endLat");
     http.Response response = await http.get(uri);
-    print("$url$journeyMode?$apiKey&start=$startLng,$startLat&end=$endLng,$endLat");
+    Controller().printLogs("$url$journeyMode?$apiKey&start=$startLng,$startLat&end=$endLng,$endLat");
 
     if(response.statusCode == 200) {
       String data = response.body;
@@ -23,7 +25,7 @@ class NetworkHelper{
 
     }
     else{
-      print(response.statusCode);
+      Controller().printLogs(response.statusCode.toString());
     }
   }
 }

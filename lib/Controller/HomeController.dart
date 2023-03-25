@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:tracking_app/Location/LocationController.dart';
+import 'package:tracking_app/Controller/LocationController.dart';
 
 import '../Model/response/LoginResponse.dart';
 import '../Model/response/RouteResponse.dart';
 import '../NetworkAPI/app_repository.dart';
 import '../NetworkAPI/response/api_response.dart';
 import '../Utils/Controller.dart';
+import 'BackgroundService.dart';
 
 class HomeController extends GetxController {
   late BuildContext context;
@@ -22,25 +24,23 @@ class HomeController extends GetxController {
   var destinationRoute = RouteDetail().obs;
   var segmentDetail = Segment().obs;
 
-
-
   @override
   void onInit() {
-
     context = Get.context!;
-
-
 
     super.onInit();
   }
 
+  void startForegroundTrackingService() async {
+    BackgroundService().initializeService().then((value) {});
+    BackgroundService().startService();
+  }
 
-
-
-
+  void stopForegroundService() {
+    BackgroundService().stopService();
+  }
 
   void getDriverRoute(String driverID) async {
-
     loginData.value = ApiResponse.loading();
     var res = await _appRepo.getRouteList(driverID);
 
@@ -49,7 +49,8 @@ class HomeController extends GetxController {
     } else {
       loginData.value = ApiResponse.completed(res);
       res as List<SegmentDetail>;
-      listRoutes.value.addAll(res );
+      listRoutes.value.clear();
+      listRoutes.value.addAll(res);
       /*if (res.waypoints != null) {
         listWayPoints.value.addAll(res.waypoints!);
       }

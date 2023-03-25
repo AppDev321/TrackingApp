@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:tracking_app/Utils/Controller.dart';
 
 import '../Utils/NotificationService.dart';
@@ -86,11 +85,11 @@ class PushNotifications {
     try {
       var body = message.notification?.body;
       var json = jsonEncode(body);
-      print(json);
+      Controller().printLogs(json);
       final data = NotificationBodyClass.fromJson(jsonDecode(body.toString()));
       notificationBody = data.message;
     } catch (e) {
-      print('The provided string is not valid JSON');
+      Controller().printLogs('The provided string is not valid JSON');
     }
 
     NotificationService().newNotification(

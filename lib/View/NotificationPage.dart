@@ -2,16 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:sliding_switch/sliding_switch.dart';
-import 'package:tracking_app/CustomWidget/NameIconBadge.dart';
-import 'package:tracking_app/Utils/Controller.dart';
-import 'package:tracking_app/View/MapView.dart';
-import '../Controller/HomeController.dart';
 
-//
-class NotificationPage extends StatelessWidget{
+class NotificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
- //   Get.lazyPut(() => HomeController());
 
     return Scaffold(
       body: Stack(
@@ -170,6 +164,4 @@ class NotificationPage extends StatelessWidget{
       ],
     );
   }
-
-
 }

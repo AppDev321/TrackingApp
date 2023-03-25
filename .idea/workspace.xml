@@ -9,35 +9,22 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ae16463-3bfc-4a16-b445-1ef2e0d8bede" name="Default Changelist" comment="Background app location send">
+    <list default="true" id="2ae16463-3bfc-4a16-b445-1ef2e0d8bede" name="Default Changelist" comment="code updated">
       <change afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/app/google-services.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/app/src/main/kotlin/com/takeru/tracking/MainActivity.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/ic_car.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/Runner/GoogleService-Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Controller/BackgroundService.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/debug/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/debug/debug.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/debug/debug.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/kotlin/com/example/tracking/MainActivity.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/profile/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/profile/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/profile/profile.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/profile/profile.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/NetworkAPI/network/network_api_services.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/NetworkAPI/network/network_api_services.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Controller/FCMController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Controller/FCMController.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Controller/HomeController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Controller/HomeController.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Location/LocationController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Controller/LocationController.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Notification/PushNotifications.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Notification/PushNotifications.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Utils/Controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Utils/Controller.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Utils/NotificationService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Utils/NotificationService.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Utils/PolyLineApi.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Utils/PolyLineApi.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/View/GoogleMap.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/View/HomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/HomePage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/View/LoginPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/LoginPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/View/MapView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/MapView.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/View/NotificationPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/NotificationPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
@@ -87,6 +74,7 @@
       <recent name="D:\Android Work\Upwork\TrackingApp\lib\Controller" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Android Work\Upwork\TrackingApp\lib\Controller" />
       <recent name="D:\Android Work\Upwork\TrackingApp\android\app\src\main\res\values" />
     </key>
   </component>
@@ -120,7 +108,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679404994238</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="code updated">
+      <created>1679758272750</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1679758272750</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -138,6 +133,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Background app location send" />
     <MESSAGE value="notificaiton list" />
-    <option name="LAST_COMMIT_MESSAGE" value="notificaiton list" />
+    <MESSAGE value="code updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="code updated" />
   </component>
 </project>

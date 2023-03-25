@@ -2,6 +2,8 @@ import 'dart:typed_data';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import 'Controller.dart';
+
 class NotificationService {
   static final NotificationService _instance = NotificationService._internal();
 
@@ -36,7 +38,7 @@ class NotificationService {
       NotificationResponse notificationResponse) async {
     final String? payload = notificationResponse.payload;
     if (notificationResponse.payload != null) {
-      print('notification payload: $payload');
+      Controller().printLogs('notification payload: $payload');
     }
   }
 
@@ -68,7 +70,7 @@ class NotificationService {
     try {
       await plugin.show(0, title, msg, notificationDetails);
     } catch (ex) {
-      print(ex);
+      Controller().printLogs(ex.toString());
     }
   }
 }
