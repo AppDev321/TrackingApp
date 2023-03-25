@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 
 class Controller {
 
-  static const MAP_API_KEY = 'AIzaSyCMKV0Yz1tY-tliMVuyd-rstHlvjt6WkGA';
+  static const MAP_API_KEY = 'AIzaSyBuRkKGgS691VvKyAtGb84IMFeaAMAc25Q';
+  /* static const MAP_API_KEY = 'AIzaSyCMKV0Yz1tY-tliMVuyd-rstHlvjt6WkGA';*/
   static const DRIVER_DETAIL="DRIVER-DATA";
   printLogs(String message) {
     if (kDebugMode) {

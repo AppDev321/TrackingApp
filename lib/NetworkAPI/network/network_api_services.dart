@@ -13,6 +13,7 @@ class NetworkApiServices extends BaseApiServices {
   Future getGetApiResponse(String url, bool printLog) async {
     if (printLog) {
       Controller().printLogs(url);
+
     }
 
     try {
@@ -41,6 +42,7 @@ class NetworkApiServices extends BaseApiServices {
   Future getFormDataApiResponse(String url, data, bool printlog) async {
     if (printlog) {
       Controller().printLogs(url);
+      Controller().printLogs(data.toString());
     }
 
     try {

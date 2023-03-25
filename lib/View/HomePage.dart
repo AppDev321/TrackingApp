@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:sliding_switch/sliding_switch.dart';
@@ -29,20 +30,19 @@ class _HomePage extends State<HomePage> {
   final LocationController locationController = Get.put(LocationController());
   late Driver driverDetail;
   late StreamSubscription driverStreamListner;
+  bool isDriverModeOnline= false;
 
   @override
   void initState() {
-
-
     driverDetail = Get.arguments[0][Controller.DRIVER_DETAIL];
     controller.getDriverRoute(driverDetail.id.toString());
 
-
-    driverStreamListner= locationController.getDriverPosition.listen((position) {
+    driverStreamListner =
+        locationController.getDriverPosition.listen((position) {
       var map = Map<String, String>();
       map['latitude'] = position.latitude.toString();
       map['longitude'] = position.longitude.toString();
-      map['driver_id']=driverDetail.id.toString();
+      map['driver_id'] = driverDetail.id.toString();
       locationController.updateDriverLocation(map);
     });
 
@@ -51,8 +51,8 @@ class _HomePage extends State<HomePage> {
 
   @override
   void dispose() {
- driverStreamListner.cancel();
-   // locationController.onClose();
+    driverStreamListner.cancel();
+    // locationController.onClose();
 
     Get.delete<LocationController>();
     Get.delete<HomeController>();
@@ -157,7 +157,7 @@ class _HomePage extends State<HomePage> {
                       ),
                       buildTitleRow("Driving Mode", 0),
                       Obx(() => SizedBox(
-                        height: Get.size.height-220,
+                          height: Get.size.height - 220,
                           child: controller.loginData.value.status ==
                                   Status.LOADING
                               ? SkeletonListView()
@@ -220,11 +220,9 @@ class _HomePage extends State<HomePage> {
           value: false,
           width: 120,
           onChanged: (bool isOnline) {
-            if (isOnline) {
+            isDriverModeOnline = isOnline;
+            if (isDriverModeOnline) {
               locationController.getLocation();
-
-
-
             } else {
               locationController.onClose();
             }
@@ -250,84 +248,161 @@ class _HomePage extends State<HomePage> {
   }
 
   Widget routeListItem(SegmentDetail segmentDetail) {
-    return GestureDetector(
-      onTap: () {
-        Get.to(() => GoogleMapView());//MapView(segmentDetail:segmentDetail));
-      },
-      child: Container(
-        margin: EdgeInsets.only(bottom: 15),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Color(0xFFF9F9FB),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  width: Get.size.width - 100,
-                  child: Text(
-                    segmentDetail.segment?.segmentTitle ?? "N/A",
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500),
-                  ),
+    return Container(
+      margin: EdgeInsets.only(bottom: 15),
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Color(0xFFF9F9FB),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                width: Get.size.width - 100,
+                child: Text(
+                  segmentDetail.segment?.segmentTitle ?? "N/A",
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w800),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                routeRow("Start Point",segmentDetail.from!, Colors.blue),
-                SizedBox(
-                  height: 10,
-                ),
-                routeRow("End Point",segmentDetail.to!, Colors.red),
-              ],
-            )
-          ],
-        ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              routeRow("", segmentDetail.from!, Colors.blue),
+              segmentDetail.waypoints!.length > 0
+                  ? Column(
+                      children: [
+                        for (RouteDetail waypoint
+                            in segmentDetail.waypoints!) ...[
+                          routeRow("", waypoint, Colors.red)
+                        ],
+                      ],
+                    )
+                  : Container(),
+              routeRow("", segmentDetail.to!, Colors.red),
+            ],
+          )
+        ],
       ),
     );
   }
 
-  Widget routeRow(String path,RouteDetail routeDetail, Color colorIcon) {
-    return Row(
-      children: [
-        Icon(
-          Icons.location_on,
-          color: colorIcon,
-          size: 20,
-        ),
-        SizedBox(
-          width: 5,
-        ),
-        Container(
-          width: Get.size.width - 100,
-          child: RichText(
-            text: TextSpan(
-                text: "$path: ",
-                style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold),
-                children: [
-                  TextSpan(
-                    text:
-                        "${routeDetail.address?.replaceAll("'", "") ?? "N/A"}",
-                    style: TextStyle(
-                        overflow: TextOverflow.ellipsis,
-                        fontSize: 12,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.normal),
+  Widget routeRow(String path, RouteDetail routeDetail, Color colorIcon) {
+    return Material(
+        color: Colors.transparent,
+
+        child: InkWell(
+        onTap: () async {
+
+          if(!isDriverModeOnline)
+ {
+   Controller().showToastMessage(context, "Please enable Driving Mode Online first");
+   return Future.error("Driver mode off");
+ }
+          bool serviceEnabled;
+          LocationPermission permission;
+          serviceEnabled = await Geolocator.isLocationServiceEnabled();
+          if (!serviceEnabled) {
+            return Future.error('Location services are disabled.');
+          }
+          permission = await Geolocator.checkPermission();
+          if (permission == LocationPermission.denied) {
+            permission = await Geolocator.requestPermission();
+            if (permission == LocationPermission.denied) {
+              return Future.error('Location permissions are denied');
+            }
+          }
+          if (permission == LocationPermission.deniedForever) {
+            return Future.error(
+                'Location permissions are permanently denied, we cannot request permissions.');
+          }
+
+            Get.to(() => MapView(segmentDetail: routeDetail,));
+        },
+        child: Column(
+
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 20,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: routeDetail.isCompleted == "1" ? Colors.blue : null),
+                  child: Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: routeDetail.isCompleted == "1"
+                        ? Icon(
+                            Icons.check,
+                            size: 10.0,
+                            color: Colors.white,
+                          )
+                        : Icon(
+                            Icons.circle_outlined,
+                            size: 15.0,
+                            color: Colors.blue,
+                          ),
                   ),
-                ]),
-          ),
-        )
-      ],
+                ),
+                /* Icon(
+                  Icons.location_on,
+                  color: colorIcon,
+                  size: 20,
+                ),*/
+                SizedBox(
+                  width: 5,
+                ),
+                Container(
+                  width: Get.size.width - 100,
+                  child: RichText(
+                    text: TextSpan(
+                        text: "$path",
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold),
+                        children: [
+                          TextSpan(
+                            text:
+                                "${routeDetail.address?.replaceAll("'", "") ?? "N/A"}",
+                            style: TextStyle(
+                                overflow: TextOverflow.ellipsis,
+                                fontSize: 12,
+                                decoration: routeDetail.isCompleted == "1"
+                                    ? TextDecoration.lineThrough
+                                    : null,
+                                color: routeDetail.isCompleted == "1"
+                                    ? Colors.grey.withOpacity(0.5)
+                                    : Colors.black.withOpacity(0.7),
+                                fontWeight: FontWeight.normal),
+                          ),
+                        ]),
+                  ),
+                ),
+                routeDetail.isCompleted == "0"
+                    ? Icon(
+                        Icons.navigate_next_rounded,
+                        color: Colors.black,
+                        size: 20,
+                      )
+                    : Container(),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

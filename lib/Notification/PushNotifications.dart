@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -51,11 +52,7 @@ class PushNotifications {
       Controller().printLogs('======= On Message =======');
       setStreamData(message);
     });
-    FirebaseMessaging.onBackgroundMessage((RemoteMessage message) async {
-      Controller().printLogs('======= On Background Message =======');
-      await Firebase.initializeApp();
-      setStreamData(message);
-    });
+
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       Controller().printLogs('======= On App Open Message =======');
       setStreamData(message);
@@ -65,29 +62,39 @@ class PushNotifications {
     //}
   }
 
-  static Future<dynamic> backgroundMessageHandler(
-      Map<String, dynamic> notInfo) async {
-    return Future.value();
+  Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+ //   await Firebase.initializeApp();
+    Controller().printLogs('======= On Background Message =======');
+    setStreamData(message, userStream: false);
   }
 
-  setStreamData(RemoteMessage message) {
-    if (kDebugMode) {
-      Controller()
-          .printLogs('Handling a foreground message: ${message.messageId}');
-      Controller().printLogs('Message data: ${message.data}');
-      Controller()
-          .printLogs('Message notification: ${message.notification?.title}');
-      Controller()
-          .printLogs('Message notification: ${message.notification?.body}');
-    }
+  setStreamData(RemoteMessage message, {bool userStream = true}) {
+    Controller()
+        .printLogs('Handling a foreground message: ${message.messageId}');
+    Controller().printLogs('Message data: ${message.data}');
+    Controller()
+        .printLogs('Message notification: ${message.notification?.title}');
+    Controller()
+        .printLogs('Message notification: ${message.notification?.body}');
 
     Controller().printLogs('===== STREAM NOTIFICATION =====');
 
-    _notificationStreamController.sink.add(message);
+    if (userStream) {
+      _notificationStreamController.sink.add(message);
+    }
+    var notificationBody = message.notification!.body.toString();
+    try {
+      var body = message.notification?.body;
+      var json = jsonEncode(body);
+      print(json);
+      final data = NotificationBodyClass.fromJson(jsonDecode(body.toString()));
+      notificationBody = data.message;
+    } catch (e) {
+      print('The provided string is not valid JSON');
+    }
+
     NotificationService().newNotification(
-        message.notification!.title.toString(),
-        "Set Local Notification",
-        false);
+        message.notification!.title.toString(), notificationBody, false);
   }
 
   saveDeviceToken(token) {
@@ -103,4 +110,20 @@ class PushNotifications {
     _notificationStreamController?.close();
     _tokenStreamController?.close();
   }
+}
+
+class NotificationBodyClass {
+  final String type;
+  final String message;
+
+  NotificationBodyClass(this.type, this.message);
+
+  NotificationBodyClass.fromJson(Map<String, dynamic> json)
+      : type = json['type'],
+        message = json['message'];
+
+  Map<String, dynamic> toJson() => {
+        'type': type,
+        'message': message,
+      };
 }

@@ -18,11 +18,13 @@ dependencies:
   geocoding: ^2.1.0
   geolocator: ^9.0.2
   flutter_local_notifications: ^13.0.0
+
   http: ^0.13.5
   background_location:
     path: background_location-master
-  firebase_messaging: ^14.3.0
+
   firebase_core: ^2.8.0
+  firebase_core_platform_interface: ^4.5.3
   get_storage: ^2.1.1
   google_maps_flutter: ^2.0.6
   flutter_polyline_points: ^1.0.0
@@ -30,6 +32,7 @@ dependencies:
   progress_dialog: ^1.2.4
   sliding_switch: ^1.1.0
   skeletons: ^0.0.3
+  firebase_messaging: ^14.3.0
 
 
 
@@ -43,3 +46,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/

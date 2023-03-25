@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tracking_app/NetworkAPI/response/api_response.dart';
 import 'package:tracking_app/View/HomePage.dart';
 
+import '../Controller/FCMController.dart';
 import '../Controller/LoginController.dart';
 import '../CustomWidget/BouncingButton.dart';
 import '../CustomWidget/ProgressDialog.dart';
@@ -18,8 +19,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final LoginController loginController = Get.put(LoginController());
 
-  // final FCMController fcmController = Get.put(FCMController());
+   final FCMController fcmController = Get.put(FCMController());
   late ProgressDialogBuilder progressDialog;
+
+
 
   @override
   void initState() {
@@ -33,13 +36,13 @@ class _LoginPageState extends State<LoginPage> {
         case Status.COMPLETED:
           progressDialog.hideOpenDialog();
           var userDetail = loginData.data as Driver;
-          Get.to(HomePage(),arguments:  [
+      /*    Get.to(HomePage(),arguments:  [
             {Controller.DRIVER_DETAIL: userDetail}
           ]);
-
-         /* Get.offAll(HomePage(),arguments:  [
+*/
+          Get.offAll(HomePage(),arguments:  [
             {Controller.DRIVER_DETAIL: userDetail}
-          ]);*/
+          ]);
           break;
         case Status.NONE:
         case Status.ERROR:
@@ -134,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                           var map = Map<String, String>();
                           map['username'] = 'faheemakbar18@gmail.com';
                           map['password'] = '12345678';
-                          map['device_id']="adlfkajdsf";
+                          map['device_id']=fcmController.fcmToken.value;
                           loginController.loginDriver(map);
                         })),
                 SizedBox(height: 20.0),
