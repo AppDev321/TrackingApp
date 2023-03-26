@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tracking_app/NetworkAPI/response/api_response.dart';
@@ -19,37 +20,41 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final LoginController loginController = Get.put(LoginController());
 
-   final FCMController fcmController = Get.put(FCMController());
-  late ProgressDialogBuilder progressDialog;
+  final FCMController fcmController = Get.put(FCMController());
+
+
+  TextEditingController emailTextController = TextEditingController();
+  TextEditingController passwordTextController = TextEditingController();
+
 
 
 
   @override
   void initState() {
     super.initState();
-    progressDialog = ProgressDialogBuilder(context);
-    progressDialog.initiateLDialog('Please wait..');
+
 
     ever(loginController.loginData, (loginData) {
+
       loginData as ApiResponse;
       switch (loginData.status) {
         case Status.COMPLETED:
-          progressDialog.hideOpenDialog();
-          var userDetail = loginData.data as Driver;
-      /*    Get.to(HomePage(),arguments:  [
-            {Controller.DRIVER_DETAIL: userDetail}
-          ]);
-*/
-          Get.offAll(HomePage(),arguments:  [
-            {Controller.DRIVER_DETAIL: userDetail}
-          ]);
+          if(mounted) {
+            Navigator.pop(context);
+          }
+
           break;
         case Status.NONE:
+          break;
         case Status.ERROR:
-          progressDialog.hideOpenDialog();
+
+          if(mounted)
+          Navigator.pop(context);
           break;
         case Status.LOADING:
-       progressDialog.showLoadingDialog();
+          if(mounted)
+          Controller().showProgressDialog(context);
+
           break;
       }
     });
@@ -59,10 +64,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView(
-
       children: <Widget>[
         Container(
-
           child: Stack(
             children: <Widget>[
               Container(
@@ -87,6 +90,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: <Widget>[
                 TextField(
+                  controller: emailTextController,
                   decoration: InputDecoration(
                       labelText: 'EMAIL',
                       labelStyle: TextStyle(
@@ -98,6 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: 20.0),
                 TextField(
+                  controller: passwordTextController,
                   decoration: InputDecoration(
                       labelText: 'PASSWORD',
                       labelStyle: TextStyle(
@@ -135,10 +140,39 @@ class _LoginPageState extends State<LoginPage> {
                         shadowColor: Colors.greenAccent,
                         callback: () {
                           var map = Map<String, String>();
-                          map['username'] = 'faheemakbar18@gmail.com';
-                          map['password'] = '12345678';
-                          map['device_id']=fcmController.fcmToken.value;
-                          loginController.loginDriver(map);
+                          map['device_id'] = fcmController.fcmToken.value;
+
+                        //  FocusScope.of(context).requestFocus(FocusNode());
+
+                          if (kDebugMode) {
+                            map['username'] = 'faheemakbar18@gmail.com';
+                            map['password'] = '12345678';
+                            loginController.loginDriver(map);
+                          } else {
+                            if (emailTextController.text.isEmpty) {
+                              Controller().showToastMessage(context,"Please enter email");
+                              return;
+                            }
+
+                            if (!RegExp(r'\S+@\S+\.\S+')
+                                .hasMatch(emailTextController.text)) {
+                              Controller().showToastMessage(context,"Enter valid Email address");
+                              return;
+                            }
+
+                            if (passwordTextController.text.isEmpty) {
+                              Controller().showToastMessage(context,"Please enter password");
+                              return;
+                            }
+
+                            map['username'] =
+                                emailTextController.text.toString();
+                            map['password'] =
+                                passwordTextController.text.toString();
+                            loginController.loginDriver(map);
+                        }
+
+
                         })),
                 SizedBox(height: 20.0),
                 Obx(

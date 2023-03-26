@@ -27,7 +27,7 @@ class ProgressDialogBuilder {
   }
 
   void hideOpenDialog() {
-  //  if(_progressDialog?.isShowing()==true)
+   if(_progressDialog?.isShowing()==true)
     _progressDialog?.hide();
   }
 }

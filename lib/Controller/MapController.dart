@@ -9,37 +9,42 @@ import '../Model/response/LoginResponse.dart';
 import '../Model/response/RouteResponse.dart';
 import '../NetworkAPI/app_repository.dart';
 import '../NetworkAPI/response/api_response.dart';
+import '../NetworkAPI/response/status.dart';
 import '../Utils/Controller.dart';
 import 'BackgroundService.dart';
 
-class HomeController extends GetxController {
+class MapController extends GetxController {
   late BuildContext context;
 
   final _appRepo = NetworkRepository();
   var loginData = ApiResponse.none().obs;
-
-  Rx<List<SegmentDetail>> listRoutes = Rx<List<SegmentDetail>>([]);
-  Rx<List<RouteDetail>> listWayPoints = Rx<List<RouteDetail>>([]);
-  var fromRoute = RouteDetail().obs;
-  var destinationRoute = RouteDetail().obs;
-  var segmentDetail = Segment().obs;
-
-  var refreshRequired = false.obs;
-
-  String driverId="";
+  var isMarkCompleted = false.obs;
 
   @override
   void onInit() {
     context = Get.context!;
+    ever(loginData, (value) {
+      value as ApiResponse;
+      switch (value.status) {
+        case Status.COMPLETED:
+          Navigator.pop(context);
+          isMarkCompleted.value = true;
+          break;
+        case Status.NONE:
+          break;
+        case Status.ERROR:
+          Controller().showToastMessage(context, value.message.toString());
+          Navigator.pop(context);
+          break;
+        case Status.LOADING:
+          Controller().showProgressDialog(context);
+          break;
+      }
+    });
 
-  //getDriverRoute();
     super.onInit();
   }
-@override
-  void onReady() {
-  getDriverRoute();
-    super.onReady();
-  }
+
   void startForegroundTrackingService() async {
     BackgroundService().initializeService().then((value) {});
     BackgroundService().startService();
@@ -49,36 +54,6 @@ class HomeController extends GetxController {
     BackgroundService().stopService();
   }
 
-
-
-
-  void getDriverRoute() async {
-   // var driverID =  GetStorage().read(Controller.DRIVER_DETAIL);
-    loginData.value = ApiResponse.loading();
-    var res = await _appRepo.getRouteList(driverId);
-
-    if (res is String) {
-      loginData.value = ApiResponse.error(res);
-    } else {
-      loginData.value = ApiResponse.completed(res);
-      res as List<SegmentDetail>;
-      listRoutes.value.clear();
-      listRoutes.value.addAll(res);
-      /*if (res.waypoints != null) {
-        listWayPoints.value.addAll(res.waypoints!);
-      }
-      if (res.from != null) {
-        fromRoute.value = res.from!;
-      }
-      if (res.to != null) {
-        destinationRoute.value = res.to!;
-      }
-
-      if (res.segment != null) {
-        segmentDetail.value = res.segment!;
-      }*/
-    }
-  }
 
 
   void markLocationCompleted(Map<String, String> request) async {

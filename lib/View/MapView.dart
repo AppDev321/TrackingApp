@@ -8,10 +8,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:tracking_app/Controller/HomeController.dart';
 import 'package:tracking_app/Model/response/RouteResponse.dart';
 import 'package:tracking_app/Utils/Controller.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import '../Controller/MapController.dart';
+
 
 /*
 
@@ -26,8 +31,11 @@ val directionUrl = "https://maps.googleapis.com/maps/api/directions/json?" +
 
 class MapView extends StatefulWidget {
   final RouteDetail segmentDetail;
+  final HomeController homeControler;
+  final VoidCallback dataUpdatedSuccessful;
 
-  const MapView({super.key, required this.segmentDetail});
+  const MapView(
+      {super.key, required this.segmentDetail, required this.homeControler,required this.dataUpdatedSuccessful});
 
   @override
   _MapViewState createState() => _MapViewState();
@@ -62,21 +70,56 @@ class _MapViewState extends State<MapView> {
 
   late RouteDetail routeDetail;
 
+ final controller = Get.put(MapController());
+
+  String mapStyle = "";
   @override
   void initState() {
     super.initState();
-    routeDetail = widget.segmentDetail;
 
-    setState(() {
-      destinationPosition = LatLng(
-          double.parse(routeDetail.latitude.toString()),
-          double.parse(routeDetail.longitude.toString()));
-      _destinationAddress = routeDetail.address.toString().replaceAll("'", "");
-      destinationAddressController.text = _destinationAddress;
 
+    rootBundle.loadString('assets/map_style.txt').then((string) {
+      mapStyle = string;
     });
 
-    getCurrentLocation();
+
+
+    routeDetail = widget.segmentDetail;
+
+    if(mounted) {
+      setState(() {
+        destinationPosition = LatLng(
+            double.parse(routeDetail.latitude.toString()),
+            double.parse(routeDetail.longitude.toString()));
+        _destinationAddress = routeDetail.address.toString().replaceAll("'", "");
+        destinationAddressController.text = _destinationAddress;
+      });
+      getCurrentLocation();
+    }
+    ever(controller.isMarkCompleted,(bool isCompleted){
+
+      if(isCompleted){
+        Get.back();
+        widget.dataUpdatedSuccessful();
+      }
+    });
+
+
+  }
+
+  @override
+  void dispose() {
+    Get.delete<MapController>();
+    super.dispose();
+  }
+
+  void updateRouteStatus() {
+    var map = Map<String, String>();
+    map['AddressId'] = routeDetail.addressId.toString();
+    map['isCompleted'] = '1'; //1 == completed , 0 == false
+
+   controller.markLocationCompleted(map);
+
   }
 
   Widget _textField({
@@ -158,8 +201,6 @@ class _MapViewState extends State<MapView> {
             "${place.name}, ${place.locality}, ${place.postalCode}, ${place.country}";
         startAddressController.text = _currentAddress;
         _startAddress = _currentAddress;
-
-
       });
     } catch (e) {
       Controller().printLogs(e.toString());
@@ -357,6 +398,7 @@ class _MapViewState extends State<MapView> {
                     polylines: Set<Polyline>.of(polylines.values),
                     onMapCreated: (GoogleMapController controller) {
                       mapController = controller;
+                      mapController.setMapStyle(mapStyle);
                       mapController.animateCamera(
                         CameraUpdate.newCameraPosition(
                           CameraPosition(
@@ -377,11 +419,13 @@ class _MapViewState extends State<MapView> {
                               ),
                             );
                           } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Error Calculating Distance'),
-                              ),
-                            );
+                            if(mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Error Calculating Distance'),
+                                ),
+                              );
+                            }
                           }
                         });
                       });
@@ -508,7 +552,13 @@ class _MapViewState extends State<MapView> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               ElevatedButton(
-                                onPressed: () async {},
+
+                                onPressed:
+                                _placeDistance != null?
+                                    () async {
+
+                                  updateRouteStatus();
+                                }:null,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
@@ -580,12 +630,12 @@ class _MapViewState extends State<MapView> {
                                 ),
                               ),
                               ElevatedButton(
-                                onPressed: () async {
+                                onPressed:  _placeDistance != null ? () async {
                                   MapsLauncher.launchCoordinates(
                                       destinationPosition.latitude,
                                       destinationPosition.longitude,
                                       _destinationAddress);
-                                },
+                                }:null,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(

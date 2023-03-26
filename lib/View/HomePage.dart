@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 import 'package:tracking_app/CustomWidget/NameIconBadge.dart';
@@ -36,7 +37,8 @@ class _HomePage extends State<HomePage> {
   @override
   void initState() {
     driverDetail = Get.arguments[0][Controller.DRIVER_DETAIL];
-    controller.getDriverRoute(driverDetail.id.toString());
+    controller.driverId = driverDetail.id.toString();
+
 
     driverStreamListner =
         locationController.getDriverPosition.listen((position) {
@@ -49,12 +51,14 @@ class _HomePage extends State<HomePage> {
 
     var control = Get.find<FCMController>();
     control.notification.listen((notificationData) {
-      print("Home Notificaiton reciev");
-      controller.getDriverRoute(driverDetail.id.toString());
-
+      refreshData();
     });
 
     super.initState();
+  }
+
+  Future<void> refreshData() async {
+    controller.getDriverRoute();
   }
 
   @override
@@ -110,9 +114,9 @@ class _HomePage extends State<HomePage> {
                         ),
                         child: NamedIcon(
                           onTap: () {
-                            Get.to(() => NotificationPage());
+                           // Get.to(() => NotificationPage());
                           },
-                          notificationCount: 12,
+                          notificationCount: 0,
                           iconData: Icons.notifications,
                           color: Colors.white,
                         ),
@@ -172,16 +176,19 @@ class _HomePage extends State<HomePage> {
                                     Status.LOADING
                                 ? SkeletonListView()
                                 : controller.listRoutes.value.length > 0
-                                    ? ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount:
-                                            controller.listRoutes.value.length,
-                                        itemBuilder: ((context, index) {
-                                          var item = controller
-                                              .listRoutes.value[index];
+                                    ? RefreshIndicator(
+                                        onRefresh: refreshData,
+                                        child: ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: controller
+                                              .listRoutes.value.length,
+                                          itemBuilder: ((context, index) {
+                                            var item = controller
+                                                .listRoutes.value[index];
 
-                                          return routeListItem(item);
-                                        }),
+                                            return routeListItem(item);
+                                          }),
+                                        ),
                                       )
                                     : SizedBox(
                                         height: Get.size.width,
@@ -233,10 +240,10 @@ class _HomePage extends State<HomePage> {
           onChanged: (bool isOnline) {
             isDriverModeOnline = isOnline;
             if (isDriverModeOnline) {
-            //  controller.startForegroundTrackingService();
+              //  controller.startForegroundTrackingService();
               locationController.getLocation();
             } else {
-             // controller.stopForegroundService();
+              // controller.stopForegroundService();
               locationController.onClose();
             }
           },
@@ -312,32 +319,39 @@ class _HomePage extends State<HomePage> {
       color: Colors.transparent,
       child: InkWell(
         onTap: () async {
-          if (!isDriverModeOnline) {
-            Controller().showToastMessage(
-                context, "Please enable Driving Mode Online first");
-            return Future.error("Driver mode off");
-          }
-          bool serviceEnabled;
-          LocationPermission permission;
-          serviceEnabled = await Geolocator.isLocationServiceEnabled();
-          if (!serviceEnabled) {
-            return Future.error('Location services are disabled.');
-          }
-          permission = await Geolocator.checkPermission();
-          if (permission == LocationPermission.denied) {
-            permission = await Geolocator.requestPermission();
-            if (permission == LocationPermission.denied) {
-              return Future.error('Location permissions are denied');
-            }
-          }
-          if (permission == LocationPermission.deniedForever) {
-            return Future.error(
-                'Location permissions are permanently denied, we cannot request permissions.');
-          }
+      if (!isDriverModeOnline) {
+        Controller().showToastMessage(
+            context, "Please enable Driving Mode Online first");
+        return Future.error("Driver mode off");
+      }
+      bool serviceEnabled;
+      LocationPermission permission;
+      serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        return Future.error('Location services are disabled.');
+      }
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          return Future.error('Location permissions are denied');
+        }
+      }
+      if (permission == LocationPermission.deniedForever) {
+        return Future.error(
+            'Location permissions are permanently denied, we cannot request permissions.');
+      }
+     if (routeDetail.isCompleted == "0") {
+        Get.to(() =>
+            MapView(
+              segmentDetail: routeDetail,
+              homeControler: controller,
+              dataUpdatedSuccessful: () {
+                refreshData();
+              },
+            ));
+     }
 
-          Get.to(() => MapView(
-                segmentDetail: routeDetail,
-              ));
         },
         child: Column(
           children: [
@@ -404,13 +418,13 @@ class _HomePage extends State<HomePage> {
                         ]),
                   ),
                 ),
-                routeDetail.isCompleted == "0"
+                /* routeDetail.isCompleted == "0"
                     ? Icon(
                         Icons.navigate_next_rounded,
                         color: Colors.black,
                         size: 20,
                       )
-                    : Container(),
+                    : Container(),*/
               ],
             ),
           ],

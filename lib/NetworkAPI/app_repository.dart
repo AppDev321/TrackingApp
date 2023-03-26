@@ -33,7 +33,7 @@ class NetworkRepository {
         }
         else
           {
-            return res.data!.errorMessage.toString();
+            return "Invalid Email/Password";
           }
       }
     } catch (e) {
@@ -89,10 +89,34 @@ class NetworkRepository {
         }
       }
     } catch (e) {
-      printException("Login", e.toString());
+      printException("Route List", e.toString());
       rethrow;
     }
   }
+  Future<dynamic> markRouteComplete(data) async {
+    try {
+      dynamic response = await _apiServices.getFormDataApiResponse(
+          AppURL.markAddressCompleted, data, true);
 
+      var responseData = json.encode(response);
+      final body = json.decode(responseData);
+
+      if (body is String) {
+        return body;
+      } else {
+        LoginResponse res = LoginResponse.fromJson(body);
+        if(res.status == true) {
+          return res.data;
+        }
+        else
+        {
+          return res.data!.errorMessage.toString();
+        }
+      }
+    } catch (e) {
+      printException("mark update", e.toString());
+      rethrow;
+    }
+  }
 
 }
