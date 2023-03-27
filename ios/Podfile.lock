@@ -1,6 +1,8 @@
 PODS:
   - background_location (0.0.1):
     - Flutter
+  - device_info_plus (0.0.1):
+    - Flutter
   - Firebase/CoreOnly (10.6.0):
     - FirebaseCore (= 10.6.0)
   - Firebase/Messaging (10.6.0):
@@ -87,6 +89,7 @@ PODS:
 
 DEPENDENCIES:
   - background_location (from `.symlinks/plugins/background_location/ios`)
+  - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - Flutter (from `Flutter`)
@@ -115,6 +118,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   background_location:
     :path: ".symlinks/plugins/background_location/ios"
+  device_info_plus:
+    :path: ".symlinks/plugins/device_info_plus/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_messaging:
@@ -140,6 +145,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   background_location: 1b80c1fe3abd9912bca298618f6e365abf6f588f
+  device_info_plus: e5c5da33f982a436e103237c0c85f9031142abed
   Firebase: f13680471b021937f2230ea8503c7809d8c29806
   firebase_core: 58542d7399889ebdbb034baa72d081e54c5c814d
   firebase_messaging: 01a8db2962f81ea190d08db767aba2e7e805e647

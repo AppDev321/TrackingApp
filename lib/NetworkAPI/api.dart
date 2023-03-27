@@ -7,4 +7,5 @@ class AppURL {
   static var routesUrl = "${baseUrl}gateway/get_drivers_segment/";
   static var driverLocation = "${baseUrl}gateway/driver_location";
   static var markAddressCompleted = "${baseUrl}gateway/mark_address_completed";
+  static var notificationHistory = "${baseUrl}gateway/get_driver_notifications/";
 }

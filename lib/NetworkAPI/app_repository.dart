@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:tracking_app/Model/response/NotificationHistoryResponse.dart';
 import 'package:tracking_app/Model/response/RouteResponse.dart';
 
 import '../Model/response/GeneralResponse.dart';
@@ -28,13 +29,11 @@ class NetworkRepository {
         return body;
       } else {
         LoginResponse res = LoginResponse.fromJson(body);
-        if(res.status == true) {
+        if (res.status == true) {
           return res.data;
+        } else {
+          return "Invalid Email/Password";
         }
-        else
-          {
-            return "Invalid Email/Password";
-          }
       }
     } catch (e) {
       printException("Login", e.toString());
@@ -53,20 +52,43 @@ class NetworkRepository {
         return body;
       } else {
         RouteResponse res = RouteResponse.fromJson(body);
-        if(res.status == true) {
+        if (res.status == true) {
           return res.segments;
-        }
-        else
-        {
+        } else {
           return <SegmentDetail>[];
         }
       }
     } catch (e) {
-      printException("Login", e.toString());
+      printException("Route List", e.toString());
       rethrow;
     }
   }
 
+  Future<dynamic> getNotificationHistory(String driverID) async {
+    try {
+      dynamic response = await _apiServices.getGetApiResponse(
+          AppURL.notificationHistory + driverID, true);
+
+      var responseData = json.encode(response);
+      final body = json.decode(responseData);
+      if (body is String) {
+        return body;
+      } else {
+        NotificationHistoryResponse res =
+            NotificationHistoryResponse.fromJson(body);
+        if (res.status == true) {
+          return res.data!.notifications!.isEmpty
+              ? <NotificationHistory>[]
+              : res.data!.notifications!;
+        } else {
+          return <NotificationHistory>[];
+        }
+      }
+    } catch (e) {
+      printException("Notification", e.toString());
+      rethrow;
+    }
+  }
 
   Future<dynamic> updateLocation(data) async {
     try {
@@ -80,19 +102,18 @@ class NetworkRepository {
         return body;
       } else {
         LoginResponse res = LoginResponse.fromJson(body);
-        if(res.status == true) {
+        if (res.status == true) {
           return res.data;
-        }
-        else
-        {
+        } else {
           return res.data!.errorMessage.toString();
         }
       }
     } catch (e) {
-      printException("Route List", e.toString());
+      printException("Location", e.toString());
       rethrow;
     }
   }
+
   Future<dynamic> markRouteComplete(data) async {
     try {
       dynamic response = await _apiServices.getFormDataApiResponse(
@@ -105,11 +126,9 @@ class NetworkRepository {
         return body;
       } else {
         LoginResponse res = LoginResponse.fromJson(body);
-        if(res.status == true) {
+        if (res.status == true) {
           return res.data;
-        }
-        else
-        {
+        } else {
           return res.data!.errorMessage.toString();
         }
       }
@@ -118,5 +137,4 @@ class NetworkRepository {
       rethrow;
     }
   }
-
 }

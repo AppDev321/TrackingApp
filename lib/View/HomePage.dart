@@ -114,7 +114,9 @@ class _HomePage extends State<HomePage> {
                         ),
                         child: NamedIcon(
                           onTap: () {
-                           // Get.to(() => NotificationPage());
+                            Get.to(NotificationPage(), arguments: [
+                              {Controller.DRIVER_DETAIL: driverDetail}
+                            ]);
                           },
                           notificationCount: 0,
                           iconData: Icons.notifications,
