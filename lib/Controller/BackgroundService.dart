@@ -4,23 +4,19 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:get/get.dart';
-import 'package:tracking_app/Controller/FCMController.dart';
-import 'package:tracking_app/Controller/LocationController.dart';
 
 import '../NetworkAPI/app_repository.dart';
 import '../NetworkAPI/response/api_response.dart';
 
 @pragma('vm:entry-point')
 Future<bool> onIosBackground(ServiceInstance service) async {
+  print("Background Service:== $service");
   WidgetsFlutterBinding.ensureInitialized();
   DartPluginRegistrant.ensureInitialized();
 
-  print("Dart IOS Backround Serivce");
 
   return true;
 }
@@ -30,6 +26,7 @@ void onStart(ServiceInstance service) async {
   DartPluginRegistrant.ensureInitialized();
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
 
   if (service is AndroidServiceInstance) {
     service.on('setAsForeground').listen((event) {
@@ -42,6 +39,7 @@ void onStart(ServiceInstance service) async {
       service.setAsBackgroundService();
     });
   }
+
 
   service.on('stopService').listen((event) {
     service.stopSelf();
@@ -87,29 +85,47 @@ void onStart(ServiceInstance service) async {
 
   // bring to foreground
   Timer.periodic(const Duration(seconds: 5), (timer) async {
-    if (service is AndroidServiceInstance) {
-      if (await service.isForegroundService()) {
+    print("Periodic Service:== $service");
+
+    //if (service is AndroidServiceInstance) {
+    //  if (await service.isForegroundService()) {
          flutterLocalNotificationsPlugin.show(
           888,
           'Tracking App',
-          'Your device is being tracked for realtime location',
+           "Updated at ${DateTime.now()}",
           const NotificationDetails(
             android: AndroidNotificationDetails(
               'my_foreground',
               'MY FOREGROUND SERVICE',
               icon: 'ic_bg_service_small',
               ongoing: true,
+              playSound: false
             ),
+            iOS: DarwinNotificationDetails(
+              presentSound: false,
+              presentBadge: true,
+              presentAlert: true,
+
+            )
           ),
         );
 
        // if you don't using custom notification, uncomment this
-        service.setForegroundNotificationInfo(
+      /*  service.setForegroundNotificationInfo(
           title: "My App Service",
           content: "Updated at ${DateTime.now()}",
-        );
-      }
-    }
+        );*/
+   //   }
+  //  }
+
+
+          // if you don't using custom notification, uncomment this
+          /*  service.setForegroundNotificationInfo(
+          title: "My App Service",
+          content: "Updated at ${DateTime.now()}",
+        );*/
+
+
 
     print('FLUTTER BACKGROUND SERVICE: ${DateTime.now()}');
 
@@ -177,7 +193,7 @@ class BackgroundService {
       iosConfiguration: IosConfiguration(
         autoStart: true,
         onForeground: onStart,
-        onBackground: onIosBackground,
+        onBackground:onIosBackground,
       ),
     );
   }

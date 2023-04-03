@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tracking_app/NetworkAPI/response/api_response.dart';
 
+import '../Controller/BackgroundService.dart';
 import '../Controller/FCMController.dart';
+import '../Controller/LocationController.dart';
 import '../Controller/LoginController.dart';
 import '../CustomWidget/BouncingButton.dart';
 import '../NetworkAPI/response/status.dart';
@@ -25,10 +27,13 @@ class _LoginPageState extends State<LoginPage> {
 
 
 
-
   @override
   void initState() {
     super.initState();
+
+    BackgroundService().initializeService().then((value) {
+      BackgroundService().startService();
+    });
 
 
     ever(loginController.loginData, (loginData) {
@@ -44,7 +49,6 @@ class _LoginPageState extends State<LoginPage> {
         case Status.NONE:
           break;
         case Status.ERROR:
-
           if(mounted)
           Navigator.pop(context);
           break;
@@ -144,7 +148,10 @@ class _LoginPageState extends State<LoginPage> {
                           if (kDebugMode) {
                             map['username'] = 'faheemakbar18@gmail.com';
                             map['password'] = '12345678';
-                            loginController.loginDriver(map);
+
+
+
+                          //  loginController.loginDriver(map);
                           } else {
                             if (emailTextController.text.isEmpty) {
                               Controller().showToastMessage(context,"Please enter email");

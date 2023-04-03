@@ -36,7 +36,9 @@ class NetworkRepository {
         }
       }
     } catch (e) {
+
       printException("Login", e.toString());
+      return  e.toString();
       rethrow;
     }
   }
@@ -60,6 +62,7 @@ class NetworkRepository {
       }
     } catch (e) {
       printException("Route List", e.toString());
+      return  e.toString();
       rethrow;
     }
   }
@@ -86,6 +89,7 @@ class NetworkRepository {
       }
     } catch (e) {
       printException("Notification", e.toString());
+      return  e.toString();
       rethrow;
     }
   }
@@ -110,6 +114,7 @@ class NetworkRepository {
       }
     } catch (e) {
       printException("Location", e.toString());
+      return  e.toString();
       rethrow;
     }
   }
@@ -134,6 +139,7 @@ class NetworkRepository {
       }
     } catch (e) {
       printException("mark update", e.toString());
+      return  e.toString();
       rethrow;
     }
   }
