@@ -23,6 +23,7 @@ class NotificationService {
       onDidReceiveLocalNotification: onDidReceiveLocalNotification,
     );
 
+
     final InitializationSettings initializationSettings =
         InitializationSettings(
       android: initializationSettingsAndroid,
@@ -45,7 +46,7 @@ class NotificationService {
   void onDidReceiveLocalNotification(
       int id, String? title, String? body, String? payload) {}
 
-  Future<void> newNotification(String title,String msg, bool vibration) async {
+  Future<void> newNotification(String title,String msg, bool vibration,{bool sound =true}) async {
     // Define vibration pattern
     var vibrationPattern = Int64List(4);
     vibrationPattern[0] = 0;
@@ -58,14 +59,23 @@ class NotificationService {
     final channelName = 'Text messages';
 
     androidNotificationDetails = AndroidNotificationDetails(
+
         channelName, channelName,
         importance: Importance.max,
+        playSound: sound,
         priority: Priority.high,
         vibrationPattern: vibration ? vibrationPattern : null,
         enableVibration: vibration);
 
+    var iosNotificationDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentSound: sound,
+      presentBadge: true,
+      categoryIdentifier: channelName
+    );
+
     var notificationDetails = NotificationDetails(
-        android: androidNotificationDetails);
+        android: androidNotificationDetails,iOS: iosNotificationDetails);
 
     try {
       await plugin.show(0, title, msg, notificationDetails);
