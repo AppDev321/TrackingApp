@@ -47,7 +47,6 @@ class _LoginPageState extends State<LoginPage> {
         case Status.NONE:
           break;
         case Status.ERROR:
-
           if(mounted)
           Navigator.pop(context);
           break;
