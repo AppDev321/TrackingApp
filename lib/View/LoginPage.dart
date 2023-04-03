@@ -2,13 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tracking_app/NetworkAPI/response/api_response.dart';
-import 'package:tracking_app/View/HomePage.dart';
 
 import '../Controller/FCMController.dart';
 import '../Controller/LoginController.dart';
 import '../CustomWidget/BouncingButton.dart';
-import '../CustomWidget/ProgressDialog.dart';
-import '../Model/response/LoginResponse.dart';
 import '../NetworkAPI/response/status.dart';
 import '../Utils/Controller.dart';
 
