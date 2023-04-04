@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class NotificationHistoryResponse {
   bool? status;
   Data? data;
@@ -44,10 +46,13 @@ class Data {
 }
 
 class NotificationHistory {
+
+
+
   String? id;
   String? driverId;
   String? title;
-  String? message;
+  MessageNotification? message;
   String? createdAt;
   String? updatedAt;
 
@@ -60,10 +65,11 @@ class NotificationHistory {
         this.updatedAt});
 
   NotificationHistory.fromJson(Map<String, dynamic> json) {
+
     id = json['id'];
     driverId = json['driver_id'];
     title = json['title'];
-    message = json['message'];
+    message = MessageNotification.fromJson(jsonDecode(json['message']));
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -76,6 +82,79 @@ class NotificationHistory {
     data['message'] = this.message;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    return data;
+  }
+}
+
+
+class MessageNotification {
+  String? to;
+  Notification? notification;
+  String? priority;
+
+  MessageNotification({this.to, this.notification, this.priority});
+
+  MessageNotification.fromJson(Map<String, dynamic> json) {
+    to = json['to'];
+    notification = json['notification'] != null
+        ? new Notification.fromJson(json['notification'])
+        : null;
+    priority = json['priority'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['to'] = this.to;
+    if (this.notification != null) {
+      data['notification'] = this.notification!.toJson();
+    }
+    data['priority'] = this.priority;
+    return data;
+  }
+}
+
+class Notification {
+  String? title;
+  Body? body;
+  String? sound;
+  String? badge;
+
+  Notification({this.title, this.body, this.sound, this.badge});
+
+  Notification.fromJson(Map<String, dynamic> json) {
+    title = json['title'];
+    body = json['body'] != null ? new Body.fromJson(json['body']) : null;
+    sound = json['sound'];
+    badge = json['badge'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['title'] = this.title;
+    if (this.body != null) {
+      data['body'] = this.body!.toJson();
+    }
+    data['sound'] = this.sound;
+    data['badge'] = this.badge;
+    return data;
+  }
+}
+
+class Body {
+  String? type;
+  String? message;
+
+  Body({this.type, this.message});
+
+  Body.fromJson(Map<String, dynamic> json) {
+    type = json['type'];
+    message = json['message'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['type'] = this.type;
+    data['message'] = this.message;
     return data;
   }
 }

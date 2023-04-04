@@ -85,7 +85,16 @@ void onStart(ServiceInstance service) async {
 
   // bring to foreground
   Timer.periodic(const Duration(seconds: 5), (timer) async {
-    print("Periodic Service:== $service");
+    print("Periodic Service ==(:::)== $service");
+    var position = await Geolocator.getCurrentPosition();
+
+    var map = Map<String, String>();
+    map['latitude'] = position.latitude.toString();
+    map['longitude'] = position.longitude.toString();
+    map['driver_id'] = "7";
+    print('Location SERVICE: ${map.toString()}');
+   // BackgroundService().updateDriverLocation(map);
+
 
     //if (service is AndroidServiceInstance) {
     //  if (await service.isForegroundService()) {
@@ -129,14 +138,7 @@ void onStart(ServiceInstance service) async {
 
     print('FLUTTER BACKGROUND SERVICE: ${DateTime.now()}');
 
-    var position=await  Geolocator.getCurrentPosition();
 
-    var map = Map<String, String>();
-    map['latitude'] = position.latitude.toString();
-    map['longitude'] = position.longitude.toString();
-    map['driver_id'] = "7";
-    print('Location SERVICE: ${map.toString()}');
-    BackgroundService().updateDriverLocation(map);
 
 
   });

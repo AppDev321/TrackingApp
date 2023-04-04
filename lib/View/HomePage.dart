@@ -3,20 +3,19 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 import 'package:tracking_app/CustomWidget/NameIconBadge.dart';
 import 'package:tracking_app/Utils/Controller.dart';
 import 'package:tracking_app/View/MapView.dart';
 import 'package:tracking_app/View/NotificationPage.dart';
+
 import '../Controller/FCMController.dart';
 import '../Controller/HomeController.dart';
 import '../Controller/LocationController.dart';
 import '../Model/response/LoginResponse.dart';
 import '../Model/response/RouteResponse.dart';
 import '../NetworkAPI/response/status.dart';
-import '../Notification/PushNotifications.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -33,12 +32,12 @@ class _HomePage extends State<HomePage> {
   late Driver driverDetail;
   late StreamSubscription driverStreamListner;
   bool isDriverModeOnline = false;
+  int notificationCount = 0;
 
   @override
   void initState() {
     driverDetail = Get.arguments[0][Controller.DRIVER_DETAIL];
     controller.driverId = driverDetail.id.toString();
-
 
     driverStreamListner =
         locationController.getDriverPosition.listen((position) {
@@ -51,6 +50,9 @@ class _HomePage extends State<HomePage> {
 
     var control = Get.find<FCMController>();
     control.notification.listen((notificationData) {
+      setState(() {
+        notificationCount = 1;
+      });
       refreshData();
     });
 
@@ -114,11 +116,14 @@ class _HomePage extends State<HomePage> {
                         ),
                         child: NamedIcon(
                           onTap: () {
+                            setState(() {
+                              notificationCount = 0;
+                            });
                             Get.to(NotificationPage(), arguments: [
                               {Controller.DRIVER_DETAIL: driverDetail}
                             ]);
                           },
-                          notificationCount: 0,
+                          notificationCount: notificationCount,
                           iconData: Icons.notifications,
                           color: Colors.white,
                         ),
@@ -269,51 +274,96 @@ class _HomePage extends State<HomePage> {
     );
   }
 
-  Widget routeListItem(SegmentDetail segmentDetail) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 15),
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Color(0xFFF9F9FB),
-        borderRadius: BorderRadius.circular(10),
+  Widget routeListItem(SegmentDetail segmentDetail,{bool showBanner = false,Color bannerColor=Colors.redAccent,String bannerText="New"} ) {
+    bool isAllRouteCompleted = true;
+    for (RouteDetail waypoint  in segmentDetail.waypoints!)
+      {
+        //1 == completed , 0 == false
+       if(waypoint.isCompleted.toString() =="0")
+         {
+           isAllRouteCompleted = false;
+           break;
+         }
+      }
+
+   if(!showBanner)
+     {
+       showBanner = isAllRouteCompleted;
+       bannerText = isAllRouteCompleted?"Completed":"";
+       bannerColor = isAllRouteCompleted?Colors.green.withOpacity(0.7):Colors.redAccent;
+     }
+
+    return Stack(children: <Widget>[
+      Container(
+        margin: EdgeInsets.only(bottom: 15),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Color(0xFFF3F3F3),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: Get.size.width - 100,
+                  child: Text(
+                    segmentDetail.segment?.segmentTitle ?? "N/A",
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w800),
+                  ),
+                ),
+
+                SizedBox(
+                  height: 10,
+                ),
+                routeRow("", segmentDetail.from!, Colors.blue),
+                segmentDetail.waypoints!.length > 0
+                    ? Column(
+                        children: [
+                          for (RouteDetail waypoint
+                              in segmentDetail.waypoints!) ...[
+                            routeRow("", waypoint, Colors.red)
+                          ],
+                        ],
+                      )
+                    : Container(),
+                routeRow("", segmentDetail.to!, Colors.red),
+              ],
+            )
+          ],
+        ),
       ),
-      child: Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                width: Get.size.width - 100,
+      showBanner
+          ? Positioned(
+              top: 0,
+              right: 0,
+              child: Container(
+                padding: const EdgeInsets.only(
+                    right: 20, top: 6, bottom: 6, left: 20),
+                decoration: BoxDecoration(
+                  color: bannerColor,
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10)),
+                ),
+                alignment: Alignment.center,
                 child: Text(
-                  segmentDetail.segment?.segmentTitle ?? "N/A",
-                  overflow: TextOverflow.ellipsis,
+                  bannerText,
                   style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w800),
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              routeRow("", segmentDetail.from!, Colors.blue),
-              segmentDetail.waypoints!.length > 0
-                  ? Column(
-                      children: [
-                        for (RouteDetail waypoint
-                            in segmentDetail.waypoints!) ...[
-                          routeRow("", waypoint, Colors.red)
-                        ],
-                      ],
-                    )
-                  : Container(),
-              routeRow("", segmentDetail.to!, Colors.red),
-            ],
-          )
-        ],
-      ),
-    );
+            )
+          : Container(),
+    ]);
   }
 
   Widget routeRow(String path, RouteDetail routeDetail, Color colorIcon) {
@@ -321,39 +371,37 @@ class _HomePage extends State<HomePage> {
       color: Colors.transparent,
       child: InkWell(
         onTap: () async {
-      if (!isDriverModeOnline) {
-        Controller().showToastMessage(
-            context, "Please enable Driving Mode Online first");
-        return Future.error("Driver mode off");
-      }
-      bool serviceEnabled;
-      LocationPermission permission;
-      serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!serviceEnabled) {
-        return Future.error('Location services are disabled.');
-      }
-      permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.denied) {
-          return Future.error('Location permissions are denied');
-        }
-      }
-      if (permission == LocationPermission.deniedForever) {
-        return Future.error(
-            'Location permissions are permanently denied, we cannot request permissions.');
-      }
-     if (routeDetail.isCompleted == "0") {
-        Get.to(() =>
-            MapView(
-              segmentDetail: routeDetail,
-              homeControler: controller,
-              dataUpdatedSuccessful: () {
-                refreshData();
-              },
-            ));
-     }
-
+          if (!isDriverModeOnline) {
+            Controller().showToastMessage(
+                context, "Please enable Driving Mode Online first");
+            return Future.error("Driver mode off");
+          }
+          bool serviceEnabled;
+          LocationPermission permission;
+          serviceEnabled = await Geolocator.isLocationServiceEnabled();
+          if (!serviceEnabled) {
+            return Future.error('Location services are disabled.');
+          }
+          permission = await Geolocator.checkPermission();
+          if (permission == LocationPermission.denied) {
+            permission = await Geolocator.requestPermission();
+            if (permission == LocationPermission.denied) {
+              return Future.error('Location permissions are denied');
+            }
+          }
+          if (permission == LocationPermission.deniedForever) {
+            return Future.error(
+                'Location permissions are permanently denied, we cannot request permissions.');
+          }
+          if (routeDetail.isCompleted == "0") {
+            Get.to(() => MapView(
+                  segmentDetail: routeDetail,
+                  homeControler: controller,
+                  dataUpdatedSuccessful: () {
+                    refreshData();
+                  },
+                ));
+          }
         },
         child: Column(
           children: [

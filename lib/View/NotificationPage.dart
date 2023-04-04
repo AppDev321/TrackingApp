@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletons/skeletons.dart';
-import 'package:sliding_switch/sliding_switch.dart';
-import 'package:tracking_app/Model/response/NotificationHistoryResponse.dart';
+
 
 import '../Controller/NotificationController.dart';
+import '../Model/response/NotificationHistoryResponse.dart';
 import '../NetworkAPI/response/status.dart';
 import '../Utils/Controller.dart';
 
@@ -19,7 +19,11 @@ class NotificationPage extends StatefulWidget {
 
 class _NotificationPageState extends State<NotificationPage> {
   final NotificationController controller = Get.put(NotificationController());
-
+@override
+  void dispose() {
+   Get.delete<NotificationController>();
+    super.dispose();
+  }
   @override
   void initState() {
 
@@ -149,6 +153,10 @@ class _NotificationPageState extends State<NotificationPage> {
   }
 
   Widget notificationListItem(NotificationHistory item) {
+
+var notificationMessage = item.message!.notification!;
+
+
     return Container(
         margin: EdgeInsets.only(bottom: 15),
         padding: EdgeInsets.all(10),
@@ -159,40 +167,42 @@ class _NotificationPageState extends State<NotificationPage> {
         child: Row(children: [
           Icon(Icons.notifications,color: Colors.grey,),
           SizedBox(width: 8,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                width: Get.size.width - 100,
-                child: Text(
-                  item.title ?? "N/A",
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: Get.size.width - 100,
+                  child: Text(
+                    notificationMessage.title?? "N/A",
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+                SizedBox(
+                  height:2,
+                ),
+                Text(
+                  item.createdAt ?? "N/A",
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500),
+                      fontSize: 10, color: Colors.grey),
                 ),
-              ),
-              SizedBox(
-                height:2,
-              ),
-              Text(
-                item.createdAt ?? "N/A",
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    fontSize: 10, color: Colors.grey),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                item.message ?? "N/A",
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    fontSize: 12, color: Colors.black.withOpacity(0.7)),
-              ),
-            ],
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  notificationMessage.body?.message ?? "N/A",
+                  //overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: 12, color: Colors.black.withOpacity(0.7)),
+                ),
+              ],
+            ),
           ),
         ]));
   }

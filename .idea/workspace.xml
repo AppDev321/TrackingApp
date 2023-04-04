@@ -12,14 +12,16 @@
     <list default="true" id="2ae16463-3bfc-4a16-b445-1ef2e0d8bede" name="Default Changelist" comment="new map implemented">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Controller/BackgroundService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Controller/BackgroundService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Controller/FCMController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Controller/FCMController.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Utils/NotificationService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Utils/NotificationService.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/CustomWidget/NameIconBadge.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/CustomWidget/NameIconBadge.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Model/response/NotificationHistoryResponse.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Model/response/NotificationHistoryResponse.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/NetworkAPI/api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/NetworkAPI/api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/View/HomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/HomePage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/View/LoginPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/LoginPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/View/NotificationPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/NotificationPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,10 +47,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DEBUGGABLE_DEVICE": "vivo-v2061-e24f3ce5",
+    "DEBUGGABLE_PROCESS": "com.takeru.tracking",
+    "DEBUGGER_ID": "Java",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SHOW_ALL_PROCESSES": "false",
     "cidr.known.project.marker": "true",
     "dart.analysis.tool.window.visible": "false",
     "io.flutter.reload.alreadyRun": "true",
@@ -120,7 +126,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680501472184</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="new map implemented">
+      <created>1680520374992</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1680520374992</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
