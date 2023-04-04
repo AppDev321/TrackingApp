@@ -42,7 +42,7 @@ class NamedIcon extends StatelessWidget {
                 padding:const EdgeInsets.all(6),
                 decoration:const BoxDecoration(shape: BoxShape.circle, color: Colors.red),
                 alignment: Alignment.center,
-                child: Text('$notificationCount',style:TextStyle(color:Colors.white,fontSize: 8)),
+                child:Center() //Text('$notificationCount',style:TextStyle(color:Colors.white,fontSize: 8)),
               ),
             ):const Center()
           ],

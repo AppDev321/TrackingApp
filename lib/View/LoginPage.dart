@@ -31,9 +31,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
 
-    BackgroundService().initializeService().then((value) {
-      BackgroundService().startService();
-    });
+
 
 
     ever(loginController.loginData, (loginData) {
@@ -143,15 +141,13 @@ class _LoginPageState extends State<LoginPage> {
                           var map = Map<String, String>();
                           map['device_id'] = fcmController.fcmToken.value;
 
-                        //  FocusScope.of(context).requestFocus(FocusNode());
+                          FocusScope.of(context).requestFocus(FocusNode());
 
                           if (kDebugMode) {
                             map['username'] = 'faheemakbar18@gmail.com';
                             map['password'] = '12345678';
+                              loginController.loginDriver(map);
 
-
-
-                          //  loginController.loginDriver(map);
                           } else {
                             if (emailTextController.text.isEmpty) {
                               Controller().showToastMessage(context,"Please enter email");

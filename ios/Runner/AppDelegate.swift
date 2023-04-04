@@ -9,10 +9,11 @@ import flutter_background_service_ios // add this
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    GeneratedPluginRegistrant.register(with: self)
+
     SwiftFlutterBackgroundServicePlugin.taskIdentifier = "com.app.task.identifier"
 
     GMSServices.provideAPIKey("AIzaSyBuRkKGgS691VvKyAtGb84IMFeaAMAc25Q")
+        GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }
