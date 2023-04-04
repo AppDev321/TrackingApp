@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletons/skeletons.dart';
-
+import 'package:sliding_switch/sliding_switch.dart';
+import 'package:tracking_app/Model/response/NotificationHistoryResponse.dart';
 
 import '../Controller/NotificationController.dart';
-import '../Model/response/NotificationHistoryResponse.dart';
 import '../NetworkAPI/response/status.dart';
 import '../Utils/Controller.dart';
 
@@ -17,21 +17,23 @@ class NotificationPage extends StatefulWidget {
   State<NotificationPage> createState() => _NotificationPageState();
 }
 
+
 class _NotificationPageState extends State<NotificationPage> {
   final NotificationController controller = Get.put(NotificationController());
-@override
+
+  @override
+  void initState() {
+    super.initState();
+    var driverDetail = Get.arguments[0][Controller.DRIVER_DETAIL];
+    controller.driverId = driverDetail.id.toString();
+  }
+
+  @override
   void dispose() {
    Get.delete<NotificationController>();
     super.dispose();
   }
-  @override
-  void initState() {
 
-    super.initState();
-
-    var driverDetail = Get.arguments[0][Controller.DRIVER_DETAIL];
-    controller.driverId = driverDetail.id.toString();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +103,7 @@ class _NotificationPageState extends State<NotificationPage> {
                       height: 10,
                     ),
                     Obx(()=>Text(
-                      "Total Notification: ${controller.listNotification.value.length}",
+                      "Total Notification: ${controller.loginData.value.status == Status.LOADING?0:controller.listNotification.value.length}",
                       style: TextStyle(
                         fontSize: 13,
                         color: Colors.black,
@@ -153,10 +155,7 @@ class _NotificationPageState extends State<NotificationPage> {
   }
 
   Widget notificationListItem(NotificationHistory item) {
-
-var notificationMessage = item.message!.notification!;
-
-
+    var notificationMessage = item.message!.notification!;
     return Container(
         margin: EdgeInsets.only(bottom: 15),
         padding: EdgeInsets.all(10),
@@ -175,12 +174,12 @@ var notificationMessage = item.message!.notification!;
                 Container(
                   width: Get.size.width - 100,
                   child: Text(
-                    notificationMessage.title?? "N/A",
+                    notificationMessage.title ?? "N/A",
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         fontSize: 15,
                         color: Colors.black,
-                        fontWeight: FontWeight.w500),
+                        fontWeight: FontWeight.w800),
                   ),
                 ),
                 SizedBox(
@@ -197,7 +196,7 @@ var notificationMessage = item.message!.notification!;
                 ),
                 Text(
                   notificationMessage.body?.message ?? "N/A",
-                  //overflow: TextOverflow.ellipsis,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                       fontSize: 12, color: Colors.black.withOpacity(0.7)),
                 ),

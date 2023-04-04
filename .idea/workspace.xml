@@ -10,18 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ae16463-3bfc-4a16-b445-1ef2e0d8bede" name="Default Changelist" comment="new map implemented">
+      <change afterPath="$PROJECT_DIR$/android/app/src/profile/gen/com/takeru/tracking/BuildConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Controller/BackgroundService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Controller/BackgroundService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/CustomWidget/NameIconBadge.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/CustomWidget/NameIconBadge.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Model/response/NotificationHistoryResponse.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Model/response/NotificationHistoryResponse.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/NetworkAPI/api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/NetworkAPI/api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Model/response/RouteResponse.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Model/response/RouteResponse.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/View/HomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/HomePage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/View/LoginPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/LoginPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/View/NotificationPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/NotificationPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,24 +44,20 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DEBUGGABLE_DEVICE": "vivo-v2061-e24f3ce5",
-    "DEBUGGABLE_PROCESS": "com.takeru.tracking",
-    "DEBUGGER_ID": "Java",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "SHOW_ALL_PROCESSES": "false",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "/Users/mac/Desktop/Tracking App - Upwork/lib/Controller",
-    "settings.editor.selected.configurable": "dart.settings",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mac/Desktop/Tracking App - Upwork/lib/Controller&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;dart.settings&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/lib/Controller" />
@@ -126,14 +121,7 @@
       <option name="project" value="LOCAL" />
       <updated>1680501472184</updated>
     </task>
-    <task id="LOCAL-00006" summary="new map implemented">
-      <created>1680520374992</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1680520374992</updated>
-    </task>
-    <option name="localTasksCounter" value="7" />
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -141,7 +129,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

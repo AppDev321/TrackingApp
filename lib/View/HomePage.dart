@@ -50,9 +50,11 @@ class _HomePage extends State<HomePage> {
 
     var control = Get.find<FCMController>();
     control.notification.listen((notificationData) {
+
       setState(() {
         notificationCount = 1;
       });
+      print("coutn === $notificationCount");
       refreshData();
     });
 
@@ -163,6 +165,7 @@ class _HomePage extends State<HomePage> {
             ),
             Positioned(
                 top: 185,
+
                 child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     height: Get.size.height,
@@ -178,7 +181,7 @@ class _HomePage extends State<HomePage> {
                         ),
                         buildTitleRow("Driving Mode", 0),
                         Obx(() => SizedBox(
-                            height: Get.size.height - 220,
+                            height: Get.size.height - 240,
                             child: controller.loginData.value.status ==
                                     Status.LOADING
                                 ? SkeletonListView()
@@ -193,7 +196,12 @@ class _HomePage extends State<HomePage> {
                                             var item = controller
                                                 .listRoutes.value[index];
 
-                                            return routeListItem(item);
+                                            return routeListItem(item,
+                                                showBanner: item.segment?.isRead
+                                                            .toString() ==
+                                                        "0"
+                                                    ? true
+                                                    : false);
                                           }),
                                         ),
                                       )
@@ -274,24 +282,28 @@ class _HomePage extends State<HomePage> {
     );
   }
 
-  Widget routeListItem(SegmentDetail segmentDetail,{bool showBanner = false,Color bannerColor=Colors.redAccent,String bannerText="New"} ) {
+  Widget routeListItem(SegmentDetail segmentDetail,
+      {bool showBanner = false,
+      Color bannerColor = Colors.redAccent,
+      String bannerText = "New"}) {
     bool isAllRouteCompleted = true;
-    for (RouteDetail waypoint  in segmentDetail.waypoints!)
-      {
-        //1 == completed , 0 == false
-       if(waypoint.isCompleted.toString() =="0")
-         {
-           isAllRouteCompleted = false;
-           break;
-         }
+    for (RouteDetail waypoint in segmentDetail.waypoints!) {
+      //1 == completed , 0 == false
+      if (waypoint.isCompleted.toString() == "0") {
+        isAllRouteCompleted = false;
+        break;
       }
-
-   if(!showBanner)
-     {
-       showBanner = isAllRouteCompleted;
-       bannerText = isAllRouteCompleted?"Completed":"";
-       bannerColor = isAllRouteCompleted?Colors.green.withOpacity(0.7):Colors.redAccent;
-     }
+    }
+    if (isAllRouteCompleted == true) {
+      showBanner = false;
+    }
+    if (!showBanner) {
+      showBanner = isAllRouteCompleted;
+      bannerText = isAllRouteCompleted ? "Completed" : "";
+      bannerColor = isAllRouteCompleted
+          ? Colors.green.withOpacity(0.7)
+          : Colors.redAccent;
+    }
 
     return Stack(children: <Widget>[
       Container(
@@ -318,7 +330,6 @@ class _HomePage extends State<HomePage> {
                         fontWeight: FontWeight.w800),
                   ),
                 ),
-
                 SizedBox(
                   height: 10,
                 ),

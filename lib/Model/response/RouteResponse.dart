@@ -81,6 +81,7 @@ class Segment {
   String? isDeleted;
   String? userId;
   String? createdOn;
+  String? isRead; //0 - mean unread ,1 == read
 
   Segment({this.segmentId,
     this.segmentTitle,
@@ -91,7 +92,8 @@ class Segment {
     this.expiryDate,
     this.isDeleted,
     this.userId,
-    this.createdOn});
+    this.createdOn,
+  this.isRead});
 
   Segment.fromJson(Map<String, dynamic> json) {
     segmentId = json['SegmentId'];
@@ -104,6 +106,8 @@ class Segment {
     isDeleted = json['isDeleted'];
     userId = json['UserId'];
     createdOn = json['CreatedOn'];
+    isRead = json['isRead'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -118,6 +122,7 @@ class Segment {
     data['isDeleted'] = this.isDeleted;
     data['UserId'] = this.userId;
     data['CreatedOn'] = this.createdOn;
+    data['isRead'] = this.isRead;
     return data;
   }
 }
