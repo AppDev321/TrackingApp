@@ -119,6 +119,7 @@ class LocationController extends GetxController {
 
 
   void updateDriverLocation(Map<String, String> request) async {
+    print("Api triggerd");
     apiResponseData.value = ApiResponse.loading();
     var res = await _appRepo.updateLocation(request);
     if (res is String) {

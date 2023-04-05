@@ -44,6 +44,8 @@ class _HomePage extends State<HomePage> {
       var map = Map<String, String>();
       map['latitude'] = position.latitude.toString();
       map['longitude'] = position.longitude.toString();
+      map['speed'] = position.speed.toString();
+      map['speed2'] = position.speedAccuracy.toString();
       map['driver_id'] = driverDetail.id.toString();
       locationController.updateDriverLocation(map);
     });
@@ -54,7 +56,7 @@ class _HomePage extends State<HomePage> {
       setState(() {
         notificationCount = 1;
       });
-      print("coutn === $notificationCount");
+
       refreshData();
     });
 
@@ -287,6 +289,12 @@ class _HomePage extends State<HomePage> {
       Color bannerColor = Colors.redAccent,
       String bannerText = "New"}) {
     bool isAllRouteCompleted = true;
+
+    if(segmentDetail.from?.isCompleted.toString() == "0" || segmentDetail.to?.isCompleted.toString() == "0")
+      {
+        isAllRouteCompleted = false;
+      }
+
     for (RouteDetail waypoint in segmentDetail.waypoints!) {
       //1 == completed , 0 == false
       if (waypoint.isCompleted.toString() == "0") {
@@ -294,6 +302,7 @@ class _HomePage extends State<HomePage> {
         break;
       }
     }
+
     if (isAllRouteCompleted == true) {
       showBanner = false;
     }

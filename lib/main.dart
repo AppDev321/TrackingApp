@@ -14,11 +14,15 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   Controller().printLogs("background notification");
   PushNotifications().firebaseMessagingBackgroundHandler(message);
 }
-
+Future<void> initializeFirebaseData() async {
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   //await Firebase.initializeApp();
+  initializeFirebaseData();
+
  //  NotificationService();
   runApp(MyApp());
 }
@@ -49,8 +53,5 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  Future<void> initializeFirebaseData() async {
-    await Firebase.initializeApp();
-    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-  }
+
 }

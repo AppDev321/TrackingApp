@@ -66,7 +66,6 @@ class _MapViewState extends State<MapView> {
   Map<PolylineId, Polyline> polylines = {};
   List<LatLng> polylineCoordinates = [];
 
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   late RouteDetail routeDetail;
 
@@ -85,7 +84,6 @@ class _MapViewState extends State<MapView> {
 
 
     routeDetail = widget.segmentDetail;
-
     if(mounted) {
       setState(() {
         destinationPosition = LatLng(
@@ -94,6 +92,8 @@ class _MapViewState extends State<MapView> {
         _destinationAddress = routeDetail.address.toString().replaceAll("'", "");
         destinationAddressController.text = _destinationAddress;
       });
+
+
       getCurrentLocation();
     }
     ever(controller.isMarkCompleted,(bool isCompleted){
@@ -175,9 +175,10 @@ class _MapViewState extends State<MapView> {
 
   // Method for retrieving the current location
   getCurrentLocation() async {
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) async {
       setState(() {
+        print("CameraPosition not initialize");
         _initialLocation = CameraPosition(
             target: LatLng(position.latitude, position.longitude));
         currentPosition = position;
@@ -381,7 +382,7 @@ class _MapViewState extends State<MapView> {
       height: height,
       width: width,
       child: Scaffold(
-        key: _scaffoldKey,
+
         body: Stack(
           children: <Widget>[
             _initialLocation == null
