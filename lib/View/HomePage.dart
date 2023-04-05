@@ -45,7 +45,7 @@ class _HomePage extends State<HomePage> {
       map['latitude'] = position.latitude.toString();
       map['longitude'] = position.longitude.toString();
       map['speed'] = position.speed.toString();
-      map['speed2'] = position.speedAccuracy.toString();
+      map['accuracy'] = position.speedAccuracy.toString();
       map['driver_id'] = driverDetail.id.toString();
       locationController.updateDriverLocation(map);
     });
