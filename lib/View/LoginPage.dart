@@ -10,6 +10,7 @@ import '../Controller/LoginController.dart';
 import '../CustomWidget/BouncingButton.dart';
 import '../NetworkAPI/response/status.dart';
 import '../Utils/Controller.dart';
+import '../Utils/String.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -68,13 +69,13 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
-                child: Text('Hello',
+                child: Text(AppStrings.helloText,
                     style:
                         TextStyle(fontSize: 80.0, fontWeight: FontWeight.bold)),
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(16.0, 175.0, 0.0, 0.0),
-                child: Text('There',
+                child: Text(AppStrings.thereText,
                     style: TextStyle(
                         color: Colors.green,
                         fontSize: 80.0,
@@ -90,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                 TextField(
                   controller: emailTextController,
                   decoration: InputDecoration(
-                      labelText: 'EMAIL',
+                      labelText: AppStrings.emailText,
                       labelStyle: TextStyle(
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.bold,
@@ -102,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                 TextField(
                   controller: passwordTextController,
                   decoration: InputDecoration(
-                      labelText: 'PASSWORD',
+                      labelText: AppStrings.passwordText,
                       labelStyle: TextStyle(
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.bold,
@@ -149,18 +150,18 @@ class _LoginPageState extends State<LoginPage> {
                              loginController.loginDriver(map);
                           } else {
                             if (emailTextController.text.isEmpty) {
-                              Controller().showToastMessage(context,"Please enter email");
+                              Controller().showToastMessage(context,AppStrings.emailWarnText);
                               return;
                             }
 
                             if (!RegExp(r'\S+@\S+\.\S+')
                                 .hasMatch(emailTextController.text)) {
-                              Controller().showToastMessage(context,"Enter valid Email address");
+                              Controller().showToastMessage(context,AppStrings.emailRegexText);
                               return;
                             }
 
                             if (passwordTextController.text.isEmpty) {
-                              Controller().showToastMessage(context,"Please enter password");
+                              Controller().showToastMessage(context,AppStrings.passwordWarnText);
                               return;
                             }
 

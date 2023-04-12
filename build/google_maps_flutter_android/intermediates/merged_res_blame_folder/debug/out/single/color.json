@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/Noman/AndroidStudioProjects/TrackingApp/build/google_maps_flutter_android/intermediates/merged_res/debug/color/common_google_signin_btn_tint.xml",
+        "source": "/Users/Noman/.gradle/caches/transforms-3/10337e2cc49cd066a0b6c8e952421346/transformed/jetified-play-services-base-18.0.1/res/color/common_google_signin_btn_tint.xml"
+    },
+    {
+        "merged": "/Users/Noman/AndroidStudioProjects/TrackingApp/build/google_maps_flutter_android/intermediates/merged_res/debug/color/common_google_signin_btn_text_light.xml",
+        "source": "/Users/Noman/.gradle/caches/transforms-3/10337e2cc49cd066a0b6c8e952421346/transformed/jetified-play-services-base-18.0.1/res/color/common_google_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "/Users/Noman/AndroidStudioProjects/TrackingApp/build/google_maps_flutter_android/intermediates/merged_res/debug/color/common_google_signin_btn_text_dark.xml",
+        "source": "/Users/Noman/.gradle/caches/transforms-3/10337e2cc49cd066a0b6c8e952421346/transformed/jetified-play-services-base-18.0.1/res/color/common_google_signin_btn_text_dark.xml"
+    }
+]

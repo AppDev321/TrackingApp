@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AndroidLayouts">
-    <shared>
-      <config />
-    </shared>
-  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ae16463-3bfc-4a16-b445-1ef2e0d8bede" name="Default Changelist" comment="code pushed 4-4-2023">
+    <list default="true" id="87048548-3850-4f29-a4ed-b3294ba18a98" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/gradle_wrapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/app/src/main/main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/background_location-master/background_location-master.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Utils/String.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Controller/LocationController.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Controller/LocationController.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TrackingApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TrackingApp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/debug/debug.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/debug/debug.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/profile/profile.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/profile/profile.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/background_location-master/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/background_location-master/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/View/HomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/HomePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/View/LoginPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/LoginPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/View/MapView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/MapView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/View/NotificationPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/View/NotificationPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,18 +35,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/lib/Notification/PushNotifications.dart" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/lib/main.dart" root0="FORCE_HIGHLIGHTING" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2N9Rc8jvWFbDWzgfiyiFKEom745" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2OJcHSxN5nDkccoWLHXYWAIGR7y" />
   <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
@@ -48,26 +52,12 @@
     "cidr.known.project.marker": "true",
     "dart.analysis.tool.window.visible": "false",
     "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "D:/Android Work/Upwork",
     "settings.editor.selected.configurable": "dart.settings",
     "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/lib/Controller" />
-      <recent name="$PROJECT_DIR$/lib/View" />
-      <recent name="$PROJECT_DIR$/lib/CustomWidget" />
-      <recent name="D:\Android Work\Upwork\TrackingApp\lib\Controller" />
-      <recent name="D:\Android Work\Upwork\TrackingApp\android\app\src\main\res" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Android Work\Upwork\TrackingApp\android\app\src\main\res\values" />
-    </key>
-  </component>
   <component name="RunManager">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
-      <option name="additionalArgs" value="--no-sound-null-safety" />
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
@@ -75,94 +65,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2ae16463-3bfc-4a16-b445-1ef2e0d8bede" name="Default Changelist" comment="" />
-      <created>1679074390428</created>
+      <changelist id="87048548-3850-4f29-a4ed-b3294ba18a98" name="Changes" comment="" />
+      <created>1681282040097</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1679074390428</updated>
+      <updated>1681282040097</updated>
     </task>
-    <task id="LOCAL-00001" summary="Background app location send">
-      <created>1679139933644</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1679139933644</updated>
-    </task>
-    <task id="LOCAL-00002" summary="notificaiton list">
-      <created>1679404994238</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1679404994238</updated>
-    </task>
-    <task id="LOCAL-00003" summary="new ip list">
-      <created>1679405101631</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1679405101631</updated>
-    </task>
-    <task id="LOCAL-00004" summary="new map implemented">
-      <created>1679901447495</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1679901447495</updated>
-    </task>
-    <task id="LOCAL-00005" summary="new map implemented">
-      <created>1680501472184</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1680501472184</updated>
-    </task>
-    <task id="LOCAL-00006" summary="code pushed 4-4-2023">
-      <created>1680632559482</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1680632559482</updated>
-    </task>
-    <task id="LOCAL-00007" summary="code pushed 4-4-2023">
-      <created>1680721181215</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1680721181215</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="master" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Background app location send" />
-    <MESSAGE value="notificaiton list" />
-    <MESSAGE value="new ip list" />
-    <MESSAGE value="new map implemented" />
-    <MESSAGE value="code pushed 4-4-2023" />
-    <option name="LAST_COMMIT_MESSAGE" value="code pushed 4-4-2023" />
   </component>
 </project>

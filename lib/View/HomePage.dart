@@ -16,6 +16,7 @@ import '../Controller/LocationController.dart';
 import '../Model/response/LoginResponse.dart';
 import '../Model/response/RouteResponse.dart';
 import '../NetworkAPI/response/status.dart';
+import '../Utils/String.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -139,7 +140,7 @@ class _HomePage extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Hi,\n${driverDetail.fullName}",
+                            "${AppStrings.greetingText}\n${driverDetail.fullName}",
                             style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               fontSize: 20,
@@ -181,7 +182,7 @@ class _HomePage extends State<HomePage> {
                         SizedBox(
                           height: 20,
                         ),
-                        buildTitleRow("Driving Mode", 0),
+                        buildTitleRow(AppStrings.drivingModeText, 0),
                         Obx(() => SizedBox(
                             height: Get.size.height - 240,
                             child: controller.loginData.value.status ==
@@ -210,7 +211,7 @@ class _HomePage extends State<HomePage> {
                                     : SizedBox(
                                         height: Get.size.width,
                                         child: Center(
-                                            child: Text("No Route Found")),
+                                            child: Text(AppStrings.noRouteText)),
                                       )))
                       ],
                     )))
@@ -269,8 +270,8 @@ class _HomePage extends State<HomePage> {
           onTap: () {},
           onDoubleTap: () {},
           onSwipe: () {},
-          textOff: "Offline",
-          textOn: "Online",
+          textOff: AppStrings.offlineText,
+          textOn: AppStrings.onlineText,
           // iconOff: Icons.gps_off,
           // iconOn: Icons.gps_fixed_outlined,
           contentSize: 12,
@@ -287,7 +288,7 @@ class _HomePage extends State<HomePage> {
   Widget routeListItem(SegmentDetail segmentDetail,
       {bool showBanner = false,
       Color bannerColor = Colors.redAccent,
-      String bannerText = "New"}) {
+      String bannerText = AppStrings.newLabelText}) {
     bool isAllRouteCompleted = true;
 
     if(segmentDetail.from?.isCompleted.toString() == "0" || segmentDetail.to?.isCompleted.toString() == "0")
@@ -308,7 +309,7 @@ class _HomePage extends State<HomePage> {
     }
     if (!showBanner) {
       showBanner = isAllRouteCompleted;
-      bannerText = isAllRouteCompleted ? "Completed" : "";
+      bannerText = isAllRouteCompleted ? AppStrings.completedLabelText : "";
       bannerColor = isAllRouteCompleted
           ? Colors.green.withOpacity(0.7)
           : Colors.redAccent;
@@ -331,7 +332,7 @@ class _HomePage extends State<HomePage> {
                 Container(
                   width: Get.size.width - 100,
                   child: Text(
-                    segmentDetail.segment?.segmentTitle ?? "N/A",
+                    segmentDetail.segment?.segmentTitle ?? AppStrings.nullableValueText,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         fontSize: 15,
@@ -393,14 +394,14 @@ class _HomePage extends State<HomePage> {
         onTap: () async {
           if (!isDriverModeOnline) {
             Controller().showToastMessage(
-                context, "Please enable Driving Mode Online first");
+                context, AppStrings.drivingWarningText);
             return Future.error("Driver mode off");
           }
           bool serviceEnabled;
           LocationPermission permission;
           serviceEnabled = await Geolocator.isLocationServiceEnabled();
           if (!serviceEnabled) {
-            return Future.error('Location services are disabled.');
+            return Future.error(AppStrings.LocationWarningText);
           }
           permission = await Geolocator.checkPermission();
           if (permission == LocationPermission.denied) {
@@ -473,7 +474,7 @@ class _HomePage extends State<HomePage> {
                         children: [
                           TextSpan(
                             text:
-                                "${routeDetail.address?.replaceAll("'", "") ?? "N/A"}",
+                                "${routeDetail.address?.replaceAll("'", "") ?? AppStrings.nullableValueText}",
                             style: TextStyle(
                                 overflow: TextOverflow.ellipsis,
                                 fontSize: 12,
@@ -520,16 +521,16 @@ class _HomePage extends State<HomePage> {
 
   AlertDialog buildExitDialog(BuildContext context) {
     return AlertDialog(
-      title: const Text('Please confirm'),
-      content: const Text('Do you want to exit the app?'),
+      title: const Text(AppStrings.confirmClosedText),
+      content: const Text(AppStrings.exitAppText),
       actions: <Widget>[
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: Text('No'),
+          child: Text(AppStrings.noText),
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(true),
-          child: Text('Yes'),
+          child: Text(AppStrings.yesText),
         ),
       ],
     );

@@ -1,8 +1,7 @@
 import 'dart:async';
-
 import 'dart:math';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -14,8 +13,9 @@ import 'package:maps_launcher/maps_launcher.dart';
 import 'package:tracking_app/Controller/HomeController.dart';
 import 'package:tracking_app/Model/response/RouteResponse.dart';
 import 'package:tracking_app/Utils/Controller.dart';
-import 'package:flutter/services.dart' show rootBundle;
+
 import '../Controller/MapController.dart';
+import '../Utils/String.dart';
 
 
 /*
@@ -178,7 +178,7 @@ class _MapViewState extends State<MapView> {
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) async {
       setState(() {
-        print("CameraPosition not initialize");
+
         _initialLocation = CameraPosition(
             target: LatLng(position.latitude, position.longitude));
         currentPosition = position;
@@ -228,7 +228,7 @@ class _MapViewState extends State<MapView> {
         markerId: MarkerId(startCoordinatesString),
         position: LatLng(startLatitude, startLongitude),
         infoWindow: InfoWindow(
-          title: 'Start Point',
+          title: AppStrings.startPointText,
           snippet: _startAddress,
         ),
         icon: BitmapDescriptor.fromBytes(carIcon),
@@ -239,7 +239,7 @@ class _MapViewState extends State<MapView> {
         markerId: MarkerId(destinationCoordinatesString),
         position: LatLng(destinationLatitude, destinationLongitude),
         infoWindow: InfoWindow(
-          title: 'Destination Point',
+          title: AppStrings.endPointText,
           snippet: _destinationAddress,
         ),
         icon: BitmapDescriptor.defaultMarker,
@@ -249,12 +249,7 @@ class _MapViewState extends State<MapView> {
       markers.add(startMarker);
       markers.add(destinationMarker);
 
-      Controller().printLogs(
-        'START COORDINATES: ($startLatitude, $startLongitude)',
-      );
-      Controller().printLogs(
-        'DESTINATION COORDINATES: ($destinationLatitude, $destinationLongitude)',
-      );
+
 
       // Calculating to check that the position relative
       // to the frame, and pan & zoom the camera accordingly.
@@ -416,14 +411,14 @@ class _MapViewState extends State<MapView> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content:
-                                    Text('Distance Calculated Successfully'),
+                                    Text(AppStrings.distanceMsgText),
                               ),
                             );
                           } else {
                             if(mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text('Error Calculating Distance'),
+                                  content: Text(AppStrings.distanceErrorText),
                                 ),
                               );
                             }
@@ -563,7 +558,7 @@ class _MapViewState extends State<MapView> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    'Mark Completed'.toUpperCase(),
+                                    AppStrings.markCompletedText.toUpperCase(),
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 12.0,
@@ -598,15 +593,15 @@ class _MapViewState extends State<MapView> {
                                             .showSnackBar(
                                           SnackBar(
                                             content: Text(
-                                                'Distance Calculated Sucessfully'),
-                                          ),
-                                        );
+                                                AppStrings.distanceMsgText
+                                          )
+                                        ));
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
                                             content: Text(
-                                                'Error Calculating Distance'),
+                                            AppStrings.distanceErrorText),
                                           ),
                                         );
                                       }
@@ -640,7 +635,7 @@ class _MapViewState extends State<MapView> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    'Start Navigation'.toUpperCase(),
+                                    AppStrings.startNavText.toUpperCase(),
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 12.0,

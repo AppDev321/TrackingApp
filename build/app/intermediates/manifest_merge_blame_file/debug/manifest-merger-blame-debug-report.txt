@@ -1,0 +1,435 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.takeru.tracking"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="20"
+9        android:targetSdkVersion="33" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->/Users/Noman/AndroidStudioProjects/TrackingApp/android/app/src/main/AndroidManifest.xml:6:5-67
+14-->/Users/Noman/AndroidStudioProjects/TrackingApp/android/app/src/main/AndroidManifest.xml:6:22-64
+15    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+15-->/Users/Noman/AndroidStudioProjects/TrackingApp/android/app/src/main/AndroidManifest.xml:7:5-79
+15-->/Users/Noman/AndroidStudioProjects/TrackingApp/android/app/src/main/AndroidManifest.xml:7:22-76
+16    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+16-->/Users/Noman/AndroidStudioProjects/TrackingApp/android/app/src/main/AndroidManifest.xml:8:5-81
+16-->/Users/Noman/AndroidStudioProjects/TrackingApp/android/app/src/main/AndroidManifest.xml:8:22-78
+17    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+17-->/Users/Noman/AndroidStudioProjects/TrackingApp/android/app/src/main/AndroidManifest.xml:9:5-85
+17-->/Users/Noman/AndroidStudioProjects/TrackingApp/android/app/src/main/AndroidManifest.xml:9:22-82
+18    <uses-permission android:name="android.permission.WAKE_LOCK" />
+18-->/Users/Noman/AndroidStudioProjects/TrackingApp/android/app/src/main/AndroidManifest.xml:10:5-68
+18-->/Users/Noman/AndroidStudioProjects/TrackingApp/android/app/src/main/AndroidManifest.xml:10:22-65
+19    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+19-->/Users/Noman/AndroidStudioProjects/TrackingApp/android/app/src/main/AndroidManifest.xml:11:5-77
+19-->/Users/Noman/AndroidStudioProjects/TrackingApp/android/app/src/main/AndroidManifest.xml:11:22-74
+20    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+20-->/Users/Noman/AndroidStudioProjects/TrackingApp/android/app/src/main/AndroidManifest.xml:12:5-81
+20-->/Users/Noman/AndroidStudioProjects/TrackingApp/android/app/src/main/AndroidManifest.xml:12:22-78
+21    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Permissions options for the `notification` group -->
+21-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-79
+21-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-76
+22    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+22-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:11:5-77
+22-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:11:22-74
+23    <uses-permission android:name="android.permission.VIBRATE" />
+23-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:8:5-66
+23-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:8:22-63
+24    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+24-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-81
+24-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-78
+25    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+25-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-79
+25-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:10:22-76
+26    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+26-->[com.google.firebase:firebase-iid:21.1.0] /Users/Noman/.gradle/caches/transforms-3/713c1360ff8a5c48562676a34617d6e7/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:26:5-82
+26-->[com.google.firebase:firebase-iid:21.1.0] /Users/Noman/.gradle/caches/transforms-3/713c1360ff8a5c48562676a34617d6e7/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:26:22-79
+27
+28    <uses-feature
+28-->[com.google.android.gms:play-services-maps:18.1.0] /Users/Noman/.gradle/caches/transforms-3/bc7263a2dbf856d3d2d7c2a0e3329c93/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:26:5-28:35
+29        android:glEsVersion="0x00020000"
+29-->[com.google.android.gms:play-services-maps:18.1.0] /Users/Noman/.gradle/caches/transforms-3/bc7263a2dbf856d3d2d7c2a0e3329c93/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:27:9-41
+30        android:required="true" />
+30-->[com.google.android.gms:play-services-maps:18.1.0] /Users/Noman/.gradle/caches/transforms-3/bc7263a2dbf856d3d2d7c2a0e3329c93/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:28:9-32
+31
+32    <queries>
+32-->[com.google.android.gms:play-services-maps:18.1.0] /Users/Noman/.gradle/caches/transforms-3/bc7263a2dbf856d3d2d7c2a0e3329c93/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:30:5-34:15
+33
+34        <!-- Needs to be explicitly declared on Android R+ -->
+35        <package android:name="com.google.android.apps.maps" />
+35-->[com.google.android.gms:play-services-maps:18.1.0] /Users/Noman/.gradle/caches/transforms-3/bc7263a2dbf856d3d2d7c2a0e3329c93/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:33:9-64
+35-->[com.google.android.gms:play-services-maps:18.1.0] /Users/Noman/.gradle/caches/transforms-3/bc7263a2dbf856d3d2d7c2a0e3329c93/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:33:18-61
+36    </queries>
+37
+38    <permission
+38-->[androidx.core:core:1.9.0] /Users/Noman/.gradle/caches/transforms-3/818ae9f98ac0da150015dd669cd8c961/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
+39        android:name="com.takeru.tracking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+39-->[androidx.core:core:1.9.0] /Users/Noman/.gradle/caches/transforms-3/818ae9f98ac0da150015dd669cd8c961/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
+40        android:protectionLevel="signature" />
+40-->[androidx.core:core:1.9.0] /Users/Noman/.gradle/caches/transforms-3/818ae9f98ac0da150015dd669cd8c961/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
+41
+42    <uses-permission android:name="com.takeru.tracking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+42-->[androidx.core:core:1.9.0] /Users/Noman/.gradle/caches/transforms-3/818ae9f98ac0da150015dd669cd8c961/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
+42-->[androidx.core:core:1.9.0] /Users/Noman/.gradle/caches/transforms-3/818ae9f98ac0da150015dd669cd8c961/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
+43
+44    <application
+45        android:name="android.app.Application"
+46        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+46-->[androidx.core:core:1.9.0] /Users/Noman/.gradle/caches/transforms-3/818ae9f98ac0da150015dd669cd8c961/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
+47        android:debuggable="true"
+48        android:icon="@mipmap/ic_launcher"
+49        android:label="@string/app_name" >
+50        <meta-data
+51            android:name="com.google.android.geo.API_KEY"
+52            android:value="AIzaSyBuRkKGgS691VvKyAtGb84IMFeaAMAc25Q" />
+53        <meta-data
+54            android:name="com.google.firebase.messaging.default_notification_channel_id"
+55            android:value="com.takeru.tracking" />
+56
+57        <activity
+58            android:name="com.takeru.tracking.MainActivity"
+59            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+60            android:exported="true"
+61            android:hardwareAccelerated="true"
+62            android:launchMode="singleTop"
+63            android:theme="@style/LaunchTheme"
+64            android:windowSoftInputMode="adjustResize" >
+65            <meta-data
+66                android:name="io.flutter.embedding.android.NormalTheme"
+67                android:resource="@style/NormalTheme" />
+68            <meta-data
+69                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+70                android:resource="@drawable/launch_background" />
+71
+72            <intent-filter>
+73                <action android:name="android.intent.action.MAIN" />
+74
+75                <category android:name="android.intent.category.LAUNCHER" />
+76            </intent-filter>
+77        </activity>
+78
+79        <meta-data
+80            android:name="flutterEmbedding"
+81            android:value="2" />
+82
+83        <service
+83-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:14:9-17:72
+84            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingBackgroundService"
+84-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-107
+85            android:exported="false"
+85-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:16:13-37
+86            android:permission="android.permission.BIND_JOB_SERVICE" />
+86-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:17:13-69
+87        <service
+87-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:18:9-24:19
+88            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingService"
+88-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:19:13-97
+89            android:exported="false" >
+89-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:20:13-37
+90            <intent-filter>
+90-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:21:13-23:29
+91                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+91-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:22:17-78
+91-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:22:25-75
+92            </intent-filter>
+93        </service>
+94
+95        <receiver
+95-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:26:9-33:20
+96            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingReceiver"
+96-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:27:13-98
+97            android:exported="true"
+97-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:28:13-36
+98            android:permission="com.google.android.c2dm.permission.SEND" >
+98-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:29:13-73
+99            <intent-filter>
+99-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:30:13-32:29
+100                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+100-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:31:17-81
+100-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:31:25-78
+101            </intent-filter>
+102        </receiver>
+103
+104        <service
+104-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:35:9-39:19
+105            android:name="com.google.firebase.components.ComponentDiscoveryService"
+105-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:35:18-89
+106            android:directBootAware="true"
+106-->[com.google.firebase:firebase-common:20.3.2] /Users/Noman/.gradle/caches/transforms-3/06a469b759c71b0664a2f4eabf2f0375/transformed/jetified-firebase-common-20.3.2/AndroidManifest.xml:34:13-43
+107            android:exported="false" >
+107-->[com.google.firebase:firebase-iid:21.1.0] /Users/Noman/.gradle/caches/transforms-3/713c1360ff8a5c48562676a34617d6e7/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:31:13-37
+108            <meta-data
+108-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:36:13-38:85
+109                android:name="com.google.firebase.components:io.flutter.plugins.firebase.messaging.FlutterFirebaseAppRegistrar"
+109-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:37:17-128
+110                android:value="com.google.firebase.components.ComponentRegistrar" />
+110-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:38:17-82
+111            <meta-data
+111-->[:firebase_core] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:9:13-11:85
+112                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+112-->[:firebase_core] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:10:17-124
+113                android:value="com.google.firebase.components.ComponentRegistrar" />
+113-->[:firebase_core] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:11:17-82
+114            <meta-data
+114-->[com.google.firebase:firebase-iid:21.1.0] /Users/Noman/.gradle/caches/transforms-3/713c1360ff8a5c48562676a34617d6e7/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:32:13-34:85
+115                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+115-->[com.google.firebase:firebase-iid:21.1.0] /Users/Noman/.gradle/caches/transforms-3/713c1360ff8a5c48562676a34617d6e7/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:33:17-96
+116                android:value="com.google.firebase.components.ComponentRegistrar" />
+116-->[com.google.firebase:firebase-iid:21.1.0] /Users/Noman/.gradle/caches/transforms-3/713c1360ff8a5c48562676a34617d6e7/transformed/jetified-firebase-iid-21.1.0/AndroidManifest.xml:34:17-82
+117            <meta-data
+117-->[com.google.firebase:firebase-messaging:23.1.2] /Users/Noman/.gradle/caches/transforms-3/251949172ac95cbbb8579ffa1c8cb963/transformed/jetified-firebase-messaging-23.1.2/AndroidManifest.xml:55:13-57:85
+118                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+118-->[com.google.firebase:firebase-messaging:23.1.2] /Users/Noman/.gradle/caches/transforms-3/251949172ac95cbbb8579ffa1c8cb963/transformed/jetified-firebase-messaging-23.1.2/AndroidManifest.xml:56:17-119
+119                android:value="com.google.firebase.components.ComponentRegistrar" />
+119-->[com.google.firebase:firebase-messaging:23.1.2] /Users/Noman/.gradle/caches/transforms-3/251949172ac95cbbb8579ffa1c8cb963/transformed/jetified-firebase-messaging-23.1.2/AndroidManifest.xml:57:17-82
+120            <meta-data
+120-->[com.google.firebase:firebase-installations:17.1.3] /Users/Noman/.gradle/caches/transforms-3/f0a4ecb085a859206bc7bb361e2a8d76/transformed/jetified-firebase-installations-17.1.3/AndroidManifest.xml:17:13-19:85
+121                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+121-->[com.google.firebase:firebase-installations:17.1.3] /Users/Noman/.gradle/caches/transforms-3/f0a4ecb085a859206bc7bb361e2a8d76/transformed/jetified-firebase-installations-17.1.3/AndroidManifest.xml:18:17-127
+122                android:value="com.google.firebase.components.ComponentRegistrar" />
+122-->[com.google.firebase:firebase-installations:17.1.3] /Users/Noman/.gradle/caches/transforms-3/f0a4ecb085a859206bc7bb361e2a8d76/transformed/jetified-firebase-installations-17.1.3/AndroidManifest.xml:19:17-82
+123            <meta-data
+123-->[com.google.firebase:firebase-datatransport:18.1.7] /Users/Noman/.gradle/caches/transforms-3/b0961dc3cfdd87b8cbfc742c8f26d12f/transformed/jetified-firebase-datatransport-18.1.7/AndroidManifest.xml:27:13-29:85
+124                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+124-->[com.google.firebase:firebase-datatransport:18.1.7] /Users/Noman/.gradle/caches/transforms-3/b0961dc3cfdd87b8cbfc742c8f26d12f/transformed/jetified-firebase-datatransport-18.1.7/AndroidManifest.xml:28:17-115
+125                android:value="com.google.firebase.components.ComponentRegistrar" />
+125-->[com.google.firebase:firebase-datatransport:18.1.7] /Users/Noman/.gradle/caches/transforms-3/b0961dc3cfdd87b8cbfc742c8f26d12f/transformed/jetified-firebase-datatransport-18.1.7/AndroidManifest.xml:29:17-82
+126        </service>
+127
+128        <provider
+128-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:41:9-45:38
+129            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider"
+129-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:42:13-102
+130            android:authorities="com.takeru.tracking.flutterfirebasemessaginginitprovider"
+130-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:43:13-88
+131            android:exported="false"
+131-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:44:13-37
+132            android:initOrder="99" />
+132-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:45:13-35
+133
+134        <service
+134-->[:geolocator_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:56
+135            android:name="com.baseflow.geolocator.GeolocatorLocationService"
+135-->[:geolocator_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-77
+136            android:enabled="true"
+136-->[:geolocator_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-35
+137            android:exported="false"
+137-->[:geolocator_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-37
+138            android:foregroundServiceType="location" />
+138-->[:geolocator_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-53
+139
+140        <activity
+140-->[:url_launcher_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:8:9-11:74
+141            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+141-->[:url_launcher_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:9:13-74
+142            android:exported="false"
+142-->[:url_launcher_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:13-37
+143            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+143-->[:url_launcher_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-71
+144
+145        <receiver
+145-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:14:9-16:40
+146            android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver"
+146-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-91
+147            android:exported="false" />
+147-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:16:13-37
+148        <receiver
+148-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:17:9-19:40
+149            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver"
+149-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:18:13-97
+150            android:exported="false" />
+150-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:19:13-37
+151        <receiver
+151-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:20:9-29:20
+152            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
+152-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:21:13-101
+153            android:exported="false" >
+153-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:22:13-37
+154            <intent-filter>
+154-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:23:13-28:29
+155                <action android:name="android.intent.action.BOOT_COMPLETED" />
+155-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:24:17-79
+155-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:24:25-76
+156                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+156-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:25:17-84
+156-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:25:25-81
+157                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+157-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:26:17-82
+157-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:26:25-79
+158                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+158-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:27:17-82
+158-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:27:25-79
+159            </intent-filter>
+160        </receiver>
+161
+162        <service
+162-->[:background_location] /Users/Noman/AndroidStudioProjects/TrackingApp/build/background_location/intermediates/merged_manifest/debug/AndroidManifest.xml:12:9-17:37
+163            android:name="com.almoullim.background_location.LocationUpdatesService"
+163-->[:background_location] /Users/Noman/AndroidStudioProjects/TrackingApp/build/background_location/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-84
+164            android:enabled="true"
+164-->[:background_location] /Users/Noman/AndroidStudioProjects/TrackingApp/build/background_location/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-35
+165            android:exported="true"
+165-->[:background_location] /Users/Noman/AndroidStudioProjects/TrackingApp/build/background_location/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-36
+166            android:foregroundServiceType="location"
+166-->[:background_location] /Users/Noman/AndroidStudioProjects/TrackingApp/build/background_location/intermediates/merged_manifest/debug/AndroidManifest.xml:16:13-53
+167            android:permission="" />
+167-->[:background_location] /Users/Noman/AndroidStudioProjects/TrackingApp/build/background_location/intermediates/merged_manifest/debug/AndroidManifest.xml:17:13-34
+168        <service
+168-->[:flutter_background_service_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:12:9-16:44
+169            android:name="id.flutter.flutter_background_service.BackgroundService"
+169-->[:flutter_background_service_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-83
+170            android:enabled="true"
+170-->[:flutter_background_service_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-35
+171            android:exported="true"
+171-->[:flutter_background_service_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-36
+172            android:stopWithTask="false" />
+172-->[:flutter_background_service_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:16:13-41
+173
+174        <receiver
+174-->[:flutter_background_service_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:18:9-21:39
+175            android:name="id.flutter.flutter_background_service.WatchdogReceiver"
+175-->[:flutter_background_service_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:19:13-82
+176            android:enabled="true"
+176-->[:flutter_background_service_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:20:13-35
+177            android:exported="true" />
+177-->[:flutter_background_service_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:21:13-36
+178        <receiver
+178-->[:flutter_background_service_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:22:9-30:20
+179            android:name="id.flutter.flutter_background_service.BootReceiver"
+179-->[:flutter_background_service_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:23:13-78
+180            android:enabled="true"
+180-->[:flutter_background_service_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:24:13-35
+181            android:exported="true" >
+181-->[:flutter_background_service_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:25:13-36
+182            <intent-filter>
+182-->[:flutter_background_service_android] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_background_service_android/intermediates/merged_manifest/debug/AndroidManifest.xml:26:13-29:29
+183                <action android:name="android.intent.action.BOOT_COMPLETED" />
+183-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:24:17-79
+183-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:24:25-76
+184                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+184-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:26:17-82
+184-->[:flutter_local_notifications] /Users/Noman/AndroidStudioProjects/TrackingApp/build/flutter_local_notifications/intermediates/merged_manifest/debug/AndroidManifest.xml:26:25-79
+185            </intent-filter>
+186        </receiver>
+187
+188        <uses-library
+188-->[androidx.window:window:1.0.0-beta04] /Users/Noman/.gradle/caches/transforms-3/549c71d83933bc630f7cf615bc72a60c/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+189            android:name="androidx.window.extensions"
+189-->[androidx.window:window:1.0.0-beta04] /Users/Noman/.gradle/caches/transforms-3/549c71d83933bc630f7cf615bc72a60c/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+190            android:required="false" />
+190-->[androidx.window:window:1.0.0-beta04] /Users/Noman/.gradle/caches/transforms-3/549c71d83933bc630f7cf615bc72a60c/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+191        <uses-library
+191-->[androidx.window:window:1.0.0-beta04] /Users/Noman/.gradle/caches/transforms-3/549c71d83933bc630f7cf615bc72a60c/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+192            android:name="androidx.window.sidecar"
+192-->[androidx.window:window:1.0.0-beta04] /Users/Noman/.gradle/caches/transforms-3/549c71d83933bc630f7cf615bc72a60c/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
+193            android:required="false" />
+193-->[androidx.window:window:1.0.0-beta04] /Users/Noman/.gradle/caches/transforms-3/549c71d83933bc630f7cf615bc72a60c/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+194
+195        <receiver
+195-->[com.google.firebase:firebase-messaging:23.1.2] /Users/Noman/.gradle/caches/transforms-3/251949172ac95cbbb8579ffa1c8cb963/transformed/jetified-firebase-messaging-23.1.2/AndroidManifest.xml:31:9-38:20
+196            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+196-->[com.google.firebase:firebase-messaging:23.1.2] /Users/Noman/.gradle/caches/transforms-3/251949172ac95cbbb8579ffa1c8cb963/transformed/jetified-firebase-messaging-23.1.2/AndroidManifest.xml:32:13-78
+197            android:exported="true"
+197-->[com.google.firebase:firebase-messaging:23.1.2] /Users/Noman/.gradle/caches/transforms-3/251949172ac95cbbb8579ffa1c8cb963/transformed/jetified-firebase-messaging-23.1.2/AndroidManifest.xml:33:13-36
+198            android:permission="com.google.android.c2dm.permission.SEND" >
+198-->[com.google.firebase:firebase-messaging:23.1.2] /Users/Noman/.gradle/caches/transforms-3/251949172ac95cbbb8579ffa1c8cb963/transformed/jetified-firebase-messaging-23.1.2/AndroidManifest.xml:34:13-73
+199            <intent-filter>
+199-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:30:13-32:29
+200                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+200-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:31:17-81
+200-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:31:25-78
+201            </intent-filter>
+202        </receiver>
+203        <!--
+204             FirebaseMessagingService performs security checks at runtime,
+205             but set to not exported to explicitly avoid allowing another app to call it.
+206        -->
+207        <service
+207-->[com.google.firebase:firebase-messaging:23.1.2] /Users/Noman/.gradle/caches/transforms-3/251949172ac95cbbb8579ffa1c8cb963/transformed/jetified-firebase-messaging-23.1.2/AndroidManifest.xml:44:9-51:19
+208            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+208-->[com.google.firebase:firebase-messaging:23.1.2] /Users/Noman/.gradle/caches/transforms-3/251949172ac95cbbb8579ffa1c8cb963/transformed/jetified-firebase-messaging-23.1.2/AndroidManifest.xml:45:13-82
+209            android:directBootAware="true"
+209-->[com.google.firebase:firebase-messaging:23.1.2] /Users/Noman/.gradle/caches/transforms-3/251949172ac95cbbb8579ffa1c8cb963/transformed/jetified-firebase-messaging-23.1.2/AndroidManifest.xml:46:13-43
+210            android:exported="false" >
+210-->[com.google.firebase:firebase-messaging:23.1.2] /Users/Noman/.gradle/caches/transforms-3/251949172ac95cbbb8579ffa1c8cb963/transformed/jetified-firebase-messaging-23.1.2/AndroidManifest.xml:47:13-37
+211            <intent-filter android:priority="-500" >
+211-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:21:13-23:29
+212                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+212-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:22:17-78
+212-->[:firebase_messaging] /Users/Noman/AndroidStudioProjects/TrackingApp/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:22:25-75
+213            </intent-filter>
+214        </service>
+215
+216        <provider
+216-->[com.google.firebase:firebase-common:20.3.2] /Users/Noman/.gradle/caches/transforms-3/06a469b759c71b0664a2f4eabf2f0375/transformed/jetified-firebase-common-20.3.2/AndroidManifest.xml:25:9-30:39
+217            android:name="com.google.firebase.provider.FirebaseInitProvider"
+217-->[com.google.firebase:firebase-common:20.3.2] /Users/Noman/.gradle/caches/transforms-3/06a469b759c71b0664a2f4eabf2f0375/transformed/jetified-firebase-common-20.3.2/AndroidManifest.xml:26:13-77
+218            android:authorities="com.takeru.tracking.firebaseinitprovider"
+218-->[com.google.firebase:firebase-common:20.3.2] /Users/Noman/.gradle/caches/transforms-3/06a469b759c71b0664a2f4eabf2f0375/transformed/jetified-firebase-common-20.3.2/AndroidManifest.xml:27:13-72
+219            android:directBootAware="true"
+219-->[com.google.firebase:firebase-common:20.3.2] /Users/Noman/.gradle/caches/transforms-3/06a469b759c71b0664a2f4eabf2f0375/transformed/jetified-firebase-common-20.3.2/AndroidManifest.xml:28:13-43
+220            android:exported="false"
+220-->[com.google.firebase:firebase-common:20.3.2] /Users/Noman/.gradle/caches/transforms-3/06a469b759c71b0664a2f4eabf2f0375/transformed/jetified-firebase-common-20.3.2/AndroidManifest.xml:29:13-37
+221            android:initOrder="100" /> <!-- Needs to be explicitly declared on P+ -->
+221-->[com.google.firebase:firebase-common:20.3.2] /Users/Noman/.gradle/caches/transforms-3/06a469b759c71b0664a2f4eabf2f0375/transformed/jetified-firebase-common-20.3.2/AndroidManifest.xml:30:13-36
+222        <uses-library
+222-->[com.google.android.gms:play-services-maps:18.1.0] /Users/Noman/.gradle/caches/transforms-3/bc7263a2dbf856d3d2d7c2a0e3329c93/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:39:9-41:40
+223            android:name="org.apache.http.legacy"
+223-->[com.google.android.gms:play-services-maps:18.1.0] /Users/Noman/.gradle/caches/transforms-3/bc7263a2dbf856d3d2d7c2a0e3329c93/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:40:13-50
+224            android:required="false" />
+224-->[com.google.android.gms:play-services-maps:18.1.0] /Users/Noman/.gradle/caches/transforms-3/bc7263a2dbf856d3d2d7c2a0e3329c93/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:41:13-37
+225
+226        <activity
+226-->[com.google.android.gms:play-services-base:18.1.0] /Users/Noman/.gradle/caches/transforms-3/0fa08d12485a35d92643778c9a9a79d6/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:20:9-22:45
+227            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+227-->[com.google.android.gms:play-services-base:18.1.0] /Users/Noman/.gradle/caches/transforms-3/0fa08d12485a35d92643778c9a9a79d6/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:20:19-85
+228            android:exported="false"
+228-->[com.google.android.gms:play-services-base:18.1.0] /Users/Noman/.gradle/caches/transforms-3/0fa08d12485a35d92643778c9a9a79d6/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:22:19-43
+229            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+229-->[com.google.android.gms:play-services-base:18.1.0] /Users/Noman/.gradle/caches/transforms-3/0fa08d12485a35d92643778c9a9a79d6/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:21:19-78
+230
+231        <meta-data
+231-->[com.google.android.gms:play-services-basement:18.1.0] /Users/Noman/.gradle/caches/transforms-3/47bdb2f0e970d2f4ced17376b0b6fd28/transformed/jetified-play-services-basement-18.1.0/AndroidManifest.xml:21:9-23:69
+232            android:name="com.google.android.gms.version"
+232-->[com.google.android.gms:play-services-basement:18.1.0] /Users/Noman/.gradle/caches/transforms-3/47bdb2f0e970d2f4ced17376b0b6fd28/transformed/jetified-play-services-basement-18.1.0/AndroidManifest.xml:22:13-58
+233            android:value="@integer/google_play_services_version" />
+233-->[com.google.android.gms:play-services-basement:18.1.0] /Users/Noman/.gradle/caches/transforms-3/47bdb2f0e970d2f4ced17376b0b6fd28/transformed/jetified-play-services-basement-18.1.0/AndroidManifest.xml:23:13-66
+234
+235        <service
+235-->[com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/Noman/.gradle/caches/transforms-3/63dfac46538284856b9794b663194792/transformed/jetified-transport-backend-cct-3.1.8/AndroidManifest.xml:28:9-34:19
+236            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+236-->[com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/Noman/.gradle/caches/transforms-3/63dfac46538284856b9794b663194792/transformed/jetified-transport-backend-cct-3.1.8/AndroidManifest.xml:29:13-103
+237            android:exported="false" >
+237-->[com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/Noman/.gradle/caches/transforms-3/63dfac46538284856b9794b663194792/transformed/jetified-transport-backend-cct-3.1.8/AndroidManifest.xml:30:13-37
+238            <meta-data
+238-->[com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/Noman/.gradle/caches/transforms-3/63dfac46538284856b9794b663194792/transformed/jetified-transport-backend-cct-3.1.8/AndroidManifest.xml:31:13-33:39
+239                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+239-->[com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/Noman/.gradle/caches/transforms-3/63dfac46538284856b9794b663194792/transformed/jetified-transport-backend-cct-3.1.8/AndroidManifest.xml:32:17-94
+240                android:value="cct" />
+240-->[com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/Noman/.gradle/caches/transforms-3/63dfac46538284856b9794b663194792/transformed/jetified-transport-backend-cct-3.1.8/AndroidManifest.xml:33:17-36
+241        </service>
+242        <service
+242-->[com.google.android.datatransport:transport-runtime:3.1.8] /Users/Noman/.gradle/caches/transforms-3/08c4b8e0307d3a68caafe1bb3e8a070a/transformed/jetified-transport-runtime-3.1.8/AndroidManifest.xml:26:9-30:19
+243            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+243-->[com.google.android.datatransport:transport-runtime:3.1.8] /Users/Noman/.gradle/caches/transforms-3/08c4b8e0307d3a68caafe1bb3e8a070a/transformed/jetified-transport-runtime-3.1.8/AndroidManifest.xml:27:13-117
+244            android:exported="false"
+244-->[com.google.android.datatransport:transport-runtime:3.1.8] /Users/Noman/.gradle/caches/transforms-3/08c4b8e0307d3a68caafe1bb3e8a070a/transformed/jetified-transport-runtime-3.1.8/AndroidManifest.xml:28:13-37
+245            android:permission="android.permission.BIND_JOB_SERVICE" >
+245-->[com.google.android.datatransport:transport-runtime:3.1.8] /Users/Noman/.gradle/caches/transforms-3/08c4b8e0307d3a68caafe1bb3e8a070a/transformed/jetified-transport-runtime-3.1.8/AndroidManifest.xml:29:13-69
+246        </service>
+247
+248        <receiver
+248-->[com.google.android.datatransport:transport-runtime:3.1.8] /Users/Noman/.gradle/caches/transforms-3/08c4b8e0307d3a68caafe1bb3e8a070a/transformed/jetified-transport-runtime-3.1.8/AndroidManifest.xml:32:9-34:40
+249            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+249-->[com.google.android.datatransport:transport-runtime:3.1.8] /Users/Noman/.gradle/caches/transforms-3/08c4b8e0307d3a68caafe1bb3e8a070a/transformed/jetified-transport-runtime-3.1.8/AndroidManifest.xml:33:13-132
+250            android:exported="false" />
+250-->[com.google.android.datatransport:transport-runtime:3.1.8] /Users/Noman/.gradle/caches/transforms-3/08c4b8e0307d3a68caafe1bb3e8a070a/transformed/jetified-transport-runtime-3.1.8/AndroidManifest.xml:34:13-37
+251    </application>
+252
+253</manifest>

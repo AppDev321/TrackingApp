@@ -7,6 +7,7 @@ import 'package:tracking_app/Model/response/NotificationHistoryResponse.dart';
 import '../Controller/NotificationController.dart';
 import '../NetworkAPI/response/status.dart';
 import '../Utils/Controller.dart';
+import '../Utils/String.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({
@@ -103,7 +104,7 @@ class _NotificationPageState extends State<NotificationPage> {
                       height: 10,
                     ),
                     Obx(()=>Text(
-                      "Total Notification: ${controller.loginData.value.status == Status.LOADING?0:controller.listNotification.value.length}",
+                      " ${AppStrings.totalCountText} ${controller.loginData.value.status == Status.LOADING?0:controller.listNotification.value.length}",
                       style: TextStyle(
                         fontSize: 13,
                         color: Colors.black,
@@ -146,7 +147,7 @@ class _NotificationPageState extends State<NotificationPage> {
                               )
                             : SizedBox(
                                 height: Get.size.width,
-                                child: Center(child: Text("No Notification Found")),
+                                child: Center(child: Text(AppStrings.noNotificationText)),
                               ))),
               ],
             )),
@@ -174,7 +175,7 @@ class _NotificationPageState extends State<NotificationPage> {
                 Container(
                   width: Get.size.width - 100,
                   child: Text(
-                    notificationMessage.title ?? "N/A",
+                    notificationMessage.title ?? AppStrings.nullableValueText,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         fontSize: 15,
@@ -186,7 +187,7 @@ class _NotificationPageState extends State<NotificationPage> {
                   height:2,
                 ),
                 Text(
-                  item.createdAt ?? "N/A",
+                  item.createdAt ?? AppStrings.nullableValueText,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                       fontSize: 10, color: Colors.grey),
@@ -195,7 +196,7 @@ class _NotificationPageState extends State<NotificationPage> {
                   height: 10,
                 ),
                 Text(
-                  notificationMessage.body?.message ?? "N/A",
+                  notificationMessage.body?.message ?? AppStrings.nullableValueText,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                       fontSize: 12, color: Colors.black.withOpacity(0.7)),
